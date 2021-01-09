@@ -1,6 +1,6 @@
 import { Express } from "express-serve-static-core";
-import { IAppProviders } from "../../providers/IAppProviders";
-import CreateUserService from "../../services/CreateUserService";
+import { IAppProviders } from "../../../providers/IAppProviders";
+import CreateUserService from "../services/CreateUserService";
 
 const LoadCreateUserRoute = (app: Express, providers: IAppProviders) => {
   app.post("/users", async (req, res) => {

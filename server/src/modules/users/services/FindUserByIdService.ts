@@ -1,6 +1,6 @@
 import { IUser } from "../entities/IUser";
-import AppError from "../errors/AppError";
-import { IDatabaseProvider } from "../providers/database/IDatabaseProvider";
+import AppError from "../../../errors/AppError";
+import { IDatabaseProvider } from "../../../providers/database/IDatabaseProvider";
 
 class FindUserByIdService {
   databaseProvider: IDatabaseProvider;

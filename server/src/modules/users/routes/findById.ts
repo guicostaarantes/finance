@@ -1,6 +1,6 @@
 import { Express } from "express-serve-static-core";
-import { IAppProviders } from "../../providers/IAppProviders";
-import FindUserByIdService from "../../services/FindUserByIdService";
+import { IAppProviders } from "../../../providers/IAppProviders";
+import FindUserByIdService from "../services/FindUserByIdService";
 
 const LoadFindUserByIdRoute = (app: Express, providers: IAppProviders) => {
   app.get("/users/:id", async (req, res) => {

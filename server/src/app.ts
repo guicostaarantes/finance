@@ -5,9 +5,9 @@ import { Express } from "express-serve-static-core";
 import { IDatabaseProvider } from "./providers/database/IDatabaseProvider";
 import { IHashProvider } from "./providers/hash/IHashProvider";
 import { IAppProviders } from "./providers/IAppProviders";
-import LoadCreateUserRoute from "./routes/users/create";
+import LoadCreateUserRoute from "./modules/users/routes/create";
+import LoadFindUserByIdRoute from "./modules/users/routes/findById";
 import AppError from "./errors/AppError";
-import LoadFindUserByIdRoute from "./routes/users/findById";
 
 class App {
   app: Express;

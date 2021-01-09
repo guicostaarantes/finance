@@ -1,10 +1,13 @@
 import express from "express";
 import cors from "cors";
+import "express-async-errors";
 import { Express } from "express-serve-static-core";
 import { IDatabaseProvider } from "./providers/database/IDatabaseProvider";
 import { IHashProvider } from "./providers/hash/IHashProvider";
 import { IAppProviders } from "./providers/IAppProviders";
 import LoadCreateUserRoute from "./routes/users/create";
+import AppError from "./errors/AppError";
+import LoadFindUserByIdRoute from "./routes/users/findById";
 
 class App {
   app: Express;
@@ -24,6 +27,23 @@ class App {
     this.app.use(express.json());
 
     LoadCreateUserRoute(this.app, this.providers);
+    LoadFindUserByIdRoute(this.app, this.providers);
+
+    this.app.use((err, _req, res, _next) => {
+      if (err instanceof AppError) {
+        return res.status(err.statusCode).json({
+          status: "error",
+          message: err.message,
+        });
+      }
+
+      console.error(err);
+
+      return res.status(500).json({
+        status: "error",
+        message: "Internal server error",
+      });
+    });
   }
 
   listen(port: number) {

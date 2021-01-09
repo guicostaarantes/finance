@@ -1,4 +1,5 @@
 import { ICreateUserData, ICreateUserInput, IUser } from "../entities/IUser";
+import AppError from "../errors/AppError";
 import { IDatabaseProvider } from "../providers/database/IDatabaseProvider";
 import { IHashProvider } from "../providers/hash/IHashProvider";
 
@@ -22,7 +23,7 @@ class CreateUserService {
     );
 
     if (exists) {
-      throw new Error("user with same email already registered");
+      throw new AppError("User with same email already registered", 409);
     }
 
     const data: ICreateUserData = {

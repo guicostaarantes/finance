@@ -1,5 +1,8 @@
 import sqlite, { Database } from "better-sqlite3";
-import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
+import {
+  ICondition,
+  IDatabaseProvider,
+} from "@/providers/database/IDatabaseProvider";
 
 class SQLiteDatabaseProvider implements IDatabaseProvider {
   database: Database;
@@ -9,31 +12,22 @@ class SQLiteDatabaseProvider implements IDatabaseProvider {
   }
 
   findAll(table: string) {
-    try {
-      const stmt = this.database.prepare(`SELECT * FROM ${table}`);
-      return stmt.all();
-    } catch (err) {
-      if (err.message === `no such table: ${table}`) {
-        throw new Error("table does not exist");
-      } else {
-        console.error(err);
-      }
-    }
+    const stmt = this.database.prepare(`SELECT * FROM ${table}`);
+    return stmt.all();
   }
 
-  findOneByField(table: string, field: string, value: string) {
-    try {
-      const stmt = this.database.prepare<string>(
-        `SELECT * FROM ${table} WHERE ${field} = ?`,
-      );
-      return stmt.get(value);
-    } catch (err) {
-      if (err.message === `no such table: ${table}`) {
-        throw new Error("table does not exist");
-      } else {
-        console.error(err);
-      }
-    }
+  findOne(table: string, conditions: ICondition[]) {
+    const stmt = this.database.prepare(
+      `SELECT * FROM ${table} WHERE ${conditions
+        .map(
+          c =>
+            `${c.field} ${c.compare} ${
+              typeof c.value === "string" ? `'${c.value}'` : c.value
+            }`,
+        )
+        .join(" AND ")} LIMIT 1`,
+    );
+    return stmt.get();
   }
 
   insertOne<T>(table: string, data: T) {
@@ -44,20 +38,24 @@ class SQLiteDatabaseProvider implements IDatabaseProvider {
       values.push(typeof data[k] === "string" ? `'${data[k]}'` : data[k]);
     });
 
-    try {
-      const stmt = this.database.prepare(
-        `INSERT INTO ${table} (${keys.join(", ")}) VALUES (${values.join(
-          ", ",
-        )})`,
-      );
-      return stmt.run();
-    } catch (err) {
-      if (err.message === `no such table: ${table}`) {
-        throw new Error("table does not exist");
-      } else {
-        console.error(err);
-      }
-    }
+    const stmt = this.database.prepare(
+      `INSERT INTO ${table} (${keys.join(", ")}) VALUES (${values.join(", ")})`,
+    );
+    return stmt.run();
+  }
+
+  updateOne<T>(table: string, conditions: ICondition[], data: T) {
+    const stmt = this.database.prepare(
+      `UPDATE ${table} SET ${Object.keys(data)
+        .map(
+          d =>
+            `${d} = ${typeof data[d] === "string" ? `'${data[d]}'` : data[d]}`,
+        )
+        .join(", ")} WHERE ${conditions
+        .map(c => `${c.field} ${c.compare} ${c.value}`)
+        .join(" AND ")} LIMIT 1`,
+    );
+    return stmt.run();
   }
 }
 

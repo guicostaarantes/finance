@@ -1,5 +1,12 @@
+export interface ICondition {
+  field: string;
+  compare: "=" | "<>" | ">" | ">=" | "<" | "<=";
+  value: string;
+}
+
 export interface IDatabaseProvider {
   findAll: <T>(table: string) => T[];
-  findOneByField: <T>(table: string, field: string, value: string) => T;
+  findOne: <T>(table: string, conditions: ICondition[]) => T;
   insertOne: <T>(table: string, data: T) => void;
+  updateOne: <T>(table: string, conditions: ICondition[], data: T) => void;
 }

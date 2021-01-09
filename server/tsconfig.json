@@ -2,6 +2,7 @@
   "include": ["./src/**/*"],
   "compilerOptions": {
     "esModuleInterop": true,
+    "downlevelIteration": true,
     "baseUrl": "./",
     "paths": {
       "@/*": ["./src/*"],

@@ -19,11 +19,9 @@ class CreateUserService {
   }
 
   async execute(input: ICreateUserInput) {
-    const exists = this.databaseProvider.findOneByField(
-      "users",
-      "email",
-      input.email,
-    );
+    const exists = this.databaseProvider.findOne("users", [
+      { field: "email", compare: "=", value: input.email },
+    ]);
 
     if (exists) {
       throw new AppError("User with same email already registered", 409);

@@ -10,7 +10,9 @@ class FindUserByIdService {
   }
 
   execute(id: string) {
-    const user = this.databaseProvider.findOneByField<IUser>("users", "id", id);
+    const user = this.databaseProvider.findOne<IUser>("users", [
+      { field: "id", compare: "=", value: id },
+    ]);
 
     if (!user) {
       throw new AppError("User not found", 404);

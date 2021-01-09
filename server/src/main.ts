@@ -17,9 +17,17 @@ const hash = new BcryptHashProvider(8);
 app.post("/users", async (req, res) => {
   const service = new CreateUserService(database, hash);
 
-  await service.execute(req.body);
-
-  res.send("user created");
+  try {
+    await service.execute(req.body);
+    res.send("user created");
+  } catch (err) {
+    if (err.message === "user with same email already registered") {
+      res.status(409).send(err.message);
+    } else {
+      console.error(err);
+      res.status(500).send("internal server error");
+    }
+  }
 });
 
 app.listen(process.env.PORT, () => {

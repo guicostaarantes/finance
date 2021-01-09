@@ -25,11 +25,11 @@ class CreateUserService {
       throw new Error("user with same email already registered");
     }
 
-    const data = {} as ICreateUserData;
-
-    data.email = input.email;
-    data.password = await this.hashProvider.hash(input.password);
-    data.created_at = (Date.now() / 1000) >> 0;
+    const data: ICreateUserData = {
+      email: input.email,
+      password: await this.hashProvider.hash(input.password),
+      created_at: (Date.now() / 1000) >> 0,
+    };
 
     this.databaseProvider.insertOne<ICreateUserData>("users", data);
   }

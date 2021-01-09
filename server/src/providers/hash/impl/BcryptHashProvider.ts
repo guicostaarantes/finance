@@ -1,5 +1,5 @@
 import { hash as bhash, compare as bcompare } from "bcryptjs";
-import { IHashProvider } from "../IHashProvider";
+import { IHashProvider } from "@/providers/hash/IHashProvider";
 
 class BcryptHashProvider implements IHashProvider {
   salt: number;

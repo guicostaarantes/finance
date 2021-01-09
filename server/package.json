@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "license": "MIT",
   "scripts": {
-    "dev": "env-cmd -f development.env sucrase-node src/server.ts"
+    "dev": "env-cmd -f development.env ts-node-dev -r tsconfig-paths/register src/server.ts"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -24,7 +24,9 @@
     "eslint-config-prettier": "^7.1.0",
     "eslint-plugin-prettier": "^3.3.1",
     "prettier": "^2.2.1",
-    "sucrase": "^3.17.0",
+    "ts-node": "^9.1.1",
+    "ts-node-dev": "^1.1.1",
+    "tsconfig-paths": "^3.9.0",
     "typescript": "^4.1.3"
   }
 }

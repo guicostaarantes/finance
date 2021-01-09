@@ -1,4 +1,4 @@
-import { IDatabaseProvider } from "../IDatabaseProvider";
+import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
 
 class TestDatabaseProvider implements IDatabaseProvider {
   database: Record<string, any[]>;

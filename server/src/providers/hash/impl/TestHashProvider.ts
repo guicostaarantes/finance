@@ -1,4 +1,4 @@
-import { IHashProvider } from "../IHashProvider";
+import { IHashProvider } from "@/providers/hash/IHashProvider";
 
 class TestHashProvider implements IHashProvider {
   async hash(value: string) {

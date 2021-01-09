@@ -1,5 +1,5 @@
-import { IDatabaseProvider } from "./database/IDatabaseProvider";
-import { IHashProvider } from "./hash/IHashProvider";
+import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
+import { IHashProvider } from "@/providers/hash/IHashProvider";
 
 export interface IAppProviders {
   database: IDatabaseProvider;

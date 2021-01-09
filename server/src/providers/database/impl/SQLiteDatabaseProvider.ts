@@ -1,5 +1,5 @@
 import sqlite, { Database } from "better-sqlite3";
-import { IDatabaseProvider } from "../IDatabaseProvider";
+import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
 
 class SQLiteDatabaseProvider implements IDatabaseProvider {
   database: Database;

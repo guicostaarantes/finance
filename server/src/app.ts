@@ -2,12 +2,12 @@ import express from "express";
 import cors from "cors";
 import "express-async-errors";
 import { Express } from "express-serve-static-core";
-import { IDatabaseProvider } from "./providers/database/IDatabaseProvider";
-import { IHashProvider } from "./providers/hash/IHashProvider";
-import { IAppProviders } from "./providers/IAppProviders";
-import LoadCreateUserRoute from "./modules/users/routes/create";
-import LoadFindUserByIdRoute from "./modules/users/routes/findById";
-import AppError from "./errors/AppError";
+import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
+import { IHashProvider } from "@/providers/hash/IHashProvider";
+import { IAppProviders } from "@/providers/IAppProviders";
+import LoadCreateUserRoute from "@/modules/users/routes/create";
+import LoadFindUserByIdRoute from "@/modules/users/routes/findById";
+import AppError from "@/errors/AppError";
 
 class App {
   app: Express;

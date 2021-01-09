@@ -3,10 +3,10 @@ import cors from "cors";
 import "express-async-errors";
 import { Express } from "express-serve-static-core";
 import { IAppProviders } from "@/providers/IAppProviders";
-import LoadCreateUserRoute from "@/modules/users/routes/create";
-import LoadFindUserByIdRoute from "@/modules/users/routes/findById";
+import LoadCreateUserRoute from "@/modules/users/routes/LoadCreateUserRoute";
+import LoadFindUserByIdRoute from "@/modules/users/routes/LoadFindUserByIdRoute";
+import LoadAuthenticateUserRoute from "@/modules/users/routes/LoadAuthenticateUserRoute";
 import AppError from "@/errors/AppError";
-import LoadAuthenticateUserRoute from "./modules/users/routes/authenticate";
 
 class App {
   app: Express;

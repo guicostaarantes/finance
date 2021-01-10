@@ -2,7 +2,7 @@ export interface IUser {
   id: string;
   email: string;
   password: string;
-  created_at: number;
+  createdAt: number;
 }
 
 export interface ICreateUserInput {
@@ -13,5 +13,5 @@ export interface ICreateUserInput {
 export interface ICreateUserData {
   email: string;
   password: string;
-  created_at: number;
+  createdAt: number;
 }

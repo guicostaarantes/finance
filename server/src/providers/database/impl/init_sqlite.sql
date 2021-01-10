@@ -2,54 +2,54 @@ CREATE TABLE "users" (
 	"id"	INTEGER NOT NULL UNIQUE,
 	"email"	TEXT NOT NULL,
 	"password"	TEXT NOT NULL,
-	"created_at"	INTEGER NOT NULL,
+	"createdAt"	INTEGER NOT NULL,
 	PRIMARY KEY("id")
 );
 
 CREATE TABLE "sessions" (
 	"id"	INTEGER NOT NULL UNIQUE,
-	"user_id"	INTEGER NOT NULL,
+	"userId"	INTEGER NOT NULL,
 	"token"	TEXT NOT NULL,
-	"created_at"	INTEGER NOT NULL,
-	"expires_at"	INTEGER NOT NULL,
+	"createdAt"	INTEGER NOT NULL,
+	"expiresAt"	INTEGER NOT NULL,
 	PRIMARY KEY("id")
-	FOREIGN KEY("user_id") REFERENCES "users"("id")
+	FOREIGN KEY("userId") REFERENCES "users"("id")
 );
 
 CREATE TABLE "snapshots" (
 	"id"	INTEGER NOT NULL UNIQUE,
-	"user_id"	INTEGER NOT NULL,
+	"userId"	INTEGER NOT NULL,
 	"date"	INTEGER NOT NULL,
 	PRIMARY KEY("id")
-	FOREIGN KEY("user_id") REFERENCES "users"("id")
+	FOREIGN KEY("userId") REFERENCES "users"("id")
 );
 
 CREATE TABLE "currencies" (
 	"id"	INTEGER NOT NULL UNIQUE,
-	"user_id"	INTEGER NOT NULL,
+	"userId"	INTEGER NOT NULL,
 	"name"	TEXT NOT NULL,
 	PRIMARY KEY("id"),
-	FOREIGN KEY("user_id") REFERENCES "users"("id")
+	FOREIGN KEY("userId") REFERENCES "users"("id")
 );
 
-CREATE TABLE "currency_values" (
+CREATE TABLE "currencyValues" (
 	"id"	INTEGER NOT NULL UNIQUE,
-	"snapshot_id"	INTEGER NOT NULL,
-	"currency_id"	INTEGER NOT NULL,
+	"snapshotId"	INTEGER NOT NULL,
+	"currencyId"	INTEGER NOT NULL,
 	"value"	REAL NOT NULL,
 	PRIMARY KEY("id"),
-	FOREIGN KEY("snapshot_id") REFERENCES "snapshots"("id"),
-	FOREIGN KEY("currency_id") REFERENCES "currencies"("id")
+	FOREIGN KEY("snapshotId") REFERENCES "snapshots"("id"),
+	FOREIGN KEY("currencyId") REFERENCES "currencies"("id")
 );
 
 CREATE TABLE "assets" (
 	"id"	INTEGER NOT NULL UNIQUE,
-	"snapshot_id"	INTEGER NOT NULL,
+	"snapshotId"	INTEGER NOT NULL,
 	"name"	TEXT NOT NULL,
 	"value"	REAL NOT NULL,
-	"currency_id"	INTEGER NOT NULL,
+	"currencyId"	INTEGER NOT NULL,
 	PRIMARY KEY("id"),
-	FOREIGN KEY("snapshot_id") REFERENCES "snapshots"("id"),
-	FOREIGN KEY("currency_id") REFERENCES "currencies"("id")
+	FOREIGN KEY("snapshotId") REFERENCES "snapshots"("id"),
+	FOREIGN KEY("currencyId") REFERENCES "currencies"("id")
 );
 

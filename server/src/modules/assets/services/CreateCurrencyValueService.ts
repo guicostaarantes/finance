@@ -7,12 +7,13 @@ import AppError from "@/modules/errors/AppError";
 import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
 import { ISnapshot } from "@/modules/assets/entities/ISnapshot";
 import { ICurrency } from "@/modules/assets/entities/ICurrency";
+import { IAppProviders } from "@/providers/IAppProviders";
 
 class CreateCurrencyValueService {
   databaseProvider: IDatabaseProvider;
 
-  constructor(databaseProvider: IDatabaseProvider) {
-    this.databaseProvider = databaseProvider;
+  constructor(providers: IAppProviders) {
+    this.databaseProvider = providers.database;
   }
 
   async execute(
@@ -21,8 +22,12 @@ class CreateCurrencyValueService {
     currencyId: string,
     input: ICreateCurrencyValueInput,
   ) {
+    if (!userId) {
+      throw new AppError("Not authorized", 401);
+    }
+
     const owner = this.databaseProvider.findOne<ISnapshot>("snapshots", [
-      { field: "user_id", compare: "=", value: userId },
+      { field: "userId", compare: "=", value: userId },
       { field: "id", compare: "=", value: snapshotId },
     ]);
 
@@ -31,7 +36,7 @@ class CreateCurrencyValueService {
     }
 
     const owner2 = this.databaseProvider.findOne<ICurrency>("currencies", [
-      { field: "user_id", compare: "=", value: userId },
+      { field: "userId", compare: "=", value: userId },
       { field: "id", compare: "=", value: currencyId },
     ]);
 
@@ -40,10 +45,10 @@ class CreateCurrencyValueService {
     }
 
     const exists = this.databaseProvider.findOne<ICurrencyValue>(
-      "currency_values",
+      "currencyValues",
       [
-        { field: "snapshot_id", compare: "=", value: snapshotId },
-        { field: "currency_id", compare: "=", value: currencyId },
+        { field: "snapshotId", compare: "=", value: snapshotId },
+        { field: "currencyId", compare: "=", value: currencyId },
       ],
     );
 
@@ -52,8 +57,8 @@ class CreateCurrencyValueService {
     }
 
     this.databaseProvider.insertOne<ICreateCurrencyValueData>(
-      "currency_values",
-      { ...input, snapshot_id: snapshotId, currency_id: currencyId },
+      "currencyValues",
+      { ...input, snapshotId, currencyId },
     );
   }
 }

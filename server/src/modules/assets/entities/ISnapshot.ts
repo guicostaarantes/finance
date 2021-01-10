@@ -1,6 +1,6 @@
 export interface ISnapshot {
   id: string;
-  user_id: string;
+  userId: string;
   date: number;
 }
 
@@ -9,6 +9,6 @@ export interface ICreateSnapshotInput {
 }
 
 export interface ICreateSnapshotData {
-  user_id: string;
+  userId: string;
   date: number;
 }

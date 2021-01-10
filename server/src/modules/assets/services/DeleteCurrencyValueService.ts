@@ -3,20 +3,25 @@ import AppError from "@/modules/errors/AppError";
 import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
 import { ISnapshot } from "@/modules/assets/entities/ISnapshot";
 import { IAsset } from "@/modules/assets/entities/IAsset";
+import { IAppProviders } from "@/providers/IAppProviders";
 
 class DeleteCurrencyValueService {
   databaseProvider: IDatabaseProvider;
 
-  constructor(databaseProvider: IDatabaseProvider) {
-    this.databaseProvider = databaseProvider;
+  constructor(providers: IAppProviders) {
+    this.databaseProvider = providers.database;
   }
 
   async execute(userId: string, snapshotId: string, currencyId: string) {
+    if (!userId) {
+      throw new AppError("Not authorized", 401);
+    }
+
     const resource = this.databaseProvider.findOne<ICurrencyValue>(
-      "currency_values",
+      "currencyValues",
       [
-        { field: "snapshot_id", compare: "=", value: snapshotId },
-        { field: "currency_id", compare: "=", value: currencyId },
+        { field: "snapshotId", compare: "=", value: snapshotId },
+        { field: "currencyId", compare: "=", value: currencyId },
       ],
     );
 
@@ -25,7 +30,7 @@ class DeleteCurrencyValueService {
     }
 
     const owner = this.databaseProvider.findOne<ISnapshot>("snapshots", [
-      { field: "user_id", compare: "=", value: userId },
+      { field: "userId", compare: "=", value: userId },
       { field: "id", compare: "=", value: snapshotId },
     ]);
 
@@ -34,8 +39,8 @@ class DeleteCurrencyValueService {
     }
 
     const assetDependency = this.databaseProvider.findMany<IAsset>("assets", [
-      { field: "snapshot_id", compare: "=", value: resource.snapshot_id },
-      { field: "currency_id", compare: "=", value: resource.currency_id },
+      { field: "snapshotId", compare: "=", value: resource.snapshotId },
+      { field: "currencyId", compare: "=", value: resource.currencyId },
     ]);
 
     if (assetDependency.length) {
@@ -45,9 +50,9 @@ class DeleteCurrencyValueService {
       );
     }
 
-    this.databaseProvider.deleteOne("currency_values", [
-      { field: "snapshot_id", compare: "=", value: snapshotId },
-      { field: "currency_id", compare: "=", value: currencyId },
+    this.databaseProvider.deleteOne("currencyValues", [
+      { field: "snapshotId", compare: "=", value: snapshotId },
+      { field: "currencyId", compare: "=", value: currencyId },
     ]);
   }
 }

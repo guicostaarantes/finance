@@ -3,17 +3,22 @@ import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
 import { IAsset } from "@/modules/assets/entities/IAsset";
 import { ISnapshot } from "@/modules/assets/entities/ISnapshot";
 import { ICurrencyValue } from "@/modules/assets/entities/ICurrencyValue";
+import { IAppProviders } from "@/providers/IAppProviders";
 
 class DeleteSnapshotService {
   databaseProvider: IDatabaseProvider;
 
-  constructor(databaseProvider: IDatabaseProvider) {
-    this.databaseProvider = databaseProvider;
+  constructor(providers: IAppProviders) {
+    this.databaseProvider = providers.database;
   }
 
   async execute(userId: string, id: string) {
+    if (!userId) {
+      throw new AppError("Not authorized", 401);
+    }
+
     const resource = this.databaseProvider.findOne<ISnapshot>("snapshots", [
-      { field: "user_id", compare: "=", value: userId },
+      { field: "userId", compare: "=", value: userId },
       { field: "id", compare: "=", value: id },
     ]);
 
@@ -22,7 +27,7 @@ class DeleteSnapshotService {
     }
 
     const assets = this.databaseProvider.findMany<IAsset>("assets", [
-      { field: "snapshot_id", compare: "=", value: id },
+      { field: "snapshotId", compare: "=", value: id },
     ]);
 
     assets.forEach(asset => {
@@ -32,8 +37,8 @@ class DeleteSnapshotService {
     });
 
     const currencyValues = this.databaseProvider.findMany<ICurrencyValue>(
-      "currency_values",
-      [{ field: "snapshot_id", compare: "=", value: id }],
+      "currencyValues",
+      [{ field: "snapshotId", compare: "=", value: id }],
     );
 
     currencyValues.forEach(currencyValue => {

@@ -5,17 +5,15 @@ import {
 import AppError from "@/modules/errors/AppError";
 import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
 import { IHashProvider } from "@/providers/hash/IHashProvider";
+import { IAppProviders } from "@/providers/IAppProviders";
 
 class CreateUserService {
   databaseProvider: IDatabaseProvider;
   hashProvider: IHashProvider;
 
-  constructor(
-    databaseProvider: IDatabaseProvider,
-    hashProvider: IHashProvider,
-  ) {
-    this.databaseProvider = databaseProvider;
-    this.hashProvider = hashProvider;
+  constructor(providers: IAppProviders) {
+    this.databaseProvider = providers.database;
+    this.hashProvider = providers.hash;
   }
 
   async execute(input: ICreateUserInput) {
@@ -30,7 +28,7 @@ class CreateUserService {
     const data: ICreateUserData = {
       email: input.email,
       password: await this.hashProvider.hash(input.password),
-      created_at: (Date.now() / 1000) >> 0,
+      createdAt: (Date.now() / 1000) >> 0,
     };
 
     this.databaseProvider.insertOne<ICreateUserData>("users", data);

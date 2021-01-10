@@ -7,12 +7,13 @@ import AppError from "@/modules/errors/AppError";
 import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
 import { ISnapshot } from "@/modules/assets/entities/ISnapshot";
 import { ICurrency } from "@/modules/assets/entities/ICurrency";
+import { IAppProviders } from "@/providers/IAppProviders";
 
 class UpdateCurrencyValueService {
   databaseProvider: IDatabaseProvider;
 
-  constructor(databaseProvider: IDatabaseProvider) {
-    this.databaseProvider = databaseProvider;
+  constructor(providers: IAppProviders) {
+    this.databaseProvider = providers.database;
   }
 
   async execute(
@@ -21,11 +22,15 @@ class UpdateCurrencyValueService {
     currencyId: string,
     input: ICreateCurrencyValueInput,
   ) {
+    if (!userId) {
+      throw new AppError("Not authorized", 401);
+    }
+
     const resource = this.databaseProvider.findOne<ICurrencyValue>(
-      "currency_values",
+      "currencyValues",
       [
-        { field: "snapshot_id", compare: "=", value: snapshotId },
-        { field: "currency_id", compare: "=", value: currencyId },
+        { field: "snapshotId", compare: "=", value: snapshotId },
+        { field: "currencyId", compare: "=", value: currencyId },
       ],
     );
 
@@ -34,7 +39,7 @@ class UpdateCurrencyValueService {
     }
 
     const owner = this.databaseProvider.findOne<ISnapshot>("snapshots", [
-      { field: "user_id", compare: "=", value: userId },
+      { field: "userId", compare: "=", value: userId },
       { field: "id", compare: "=", value: snapshotId },
     ]);
 
@@ -43,7 +48,7 @@ class UpdateCurrencyValueService {
     }
 
     const owner2 = this.databaseProvider.findOne<ICurrency>("currencies", [
-      { field: "user_id", compare: "=", value: userId },
+      { field: "userId", compare: "=", value: userId },
       { field: "id", compare: "=", value: currencyId },
     ]);
 
@@ -52,12 +57,12 @@ class UpdateCurrencyValueService {
     }
 
     this.databaseProvider.updateOne<ICreateCurrencyValueData>(
-      "currency_values",
+      "currencyValues",
       [
-        { field: "snapshot_id", compare: "=", value: snapshotId },
-        { field: "currency_id", compare: "=", value: currencyId },
+        { field: "snapshotId", compare: "=", value: snapshotId },
+        { field: "currencyId", compare: "=", value: currencyId },
       ],
-      { ...input, snapshot_id: snapshotId, currency_id: currencyId },
+      { ...input, snapshotId, currencyId },
     );
   }
 }

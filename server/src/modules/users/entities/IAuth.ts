@@ -4,8 +4,8 @@ export interface IAuthenticateUserInput {
 }
 
 export interface ISession {
-  user_id: string;
+  userId: string;
   token: string;
-  created_at: number;
-  expires_at: number;
+  createdAt: number;
+  expiresAt: number;
 }

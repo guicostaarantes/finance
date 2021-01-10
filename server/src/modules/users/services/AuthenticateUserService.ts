@@ -7,20 +7,17 @@ import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
 import { IHashProvider } from "@/providers/hash/IHashProvider";
 import { ITokenProvider } from "@/providers/Token/ITokenProvider";
 import { IUser } from "@/modules/users/entities/IUser";
+import { IAppProviders } from "@/providers/IAppProviders";
 
 class AuthenticateUserService {
   databaseProvider: IDatabaseProvider;
   hashProvider: IHashProvider;
   tokenProvider: ITokenProvider;
 
-  constructor(
-    databaseProvider: IDatabaseProvider,
-    hashProvider: IHashProvider,
-    tokenProvider: ITokenProvider,
-  ) {
-    this.databaseProvider = databaseProvider;
-    this.hashProvider = hashProvider;
-    this.tokenProvider = tokenProvider;
+  constructor(providers: IAppProviders) {
+    this.databaseProvider = providers.database;
+    this.hashProvider = providers.hash;
+    this.tokenProvider = providers.token;
   }
 
   async execute(input: IAuthenticateUserInput) {
@@ -42,9 +39,9 @@ class AuthenticateUserService {
     }
 
     const activeSession = this.databaseProvider.findOne<IUser>("sessions", [
-      { field: "user_id", compare: "=", value: user.id },
+      { field: "userId", compare: "=", value: user.id },
       {
-        field: "expires_at",
+        field: "expiresAt",
         compare: ">",
         value: (Date.now() / 1000) >> 0,
       },
@@ -54,15 +51,15 @@ class AuthenticateUserService {
       this.databaseProvider.updateOne(
         "sessions",
         [{ field: "id", compare: "=", value: activeSession.id }],
-        { expires_at: (Date.now() / 1000) >> 0 },
+        { expiresAt: (Date.now() / 1000) >> 0 },
       );
     }
 
     const data: ISession = {
-      user_id: user.id,
+      userId: user.id,
       token: this.tokenProvider.generate(),
-      created_at: (Date.now() / 1000) >> 0,
-      expires_at: ((Date.now() / 1000) >> 0) + 1800,
+      createdAt: (Date.now() / 1000) >> 0,
+      expiresAt: ((Date.now() / 1000) >> 0) + 1800,
     };
 
     this.databaseProvider.insertOne<ISession>("sessions", data);

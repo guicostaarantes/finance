@@ -1,21 +1,21 @@
 export interface IAsset {
   id: string;
-  snapshot_id: string;
+  snapshotId: string;
   name: string;
   value: number;
-  currency_id: string;
+  currencyId: string;
 }
 
 export interface ICreateAssetInput {
-  snapshot_id: string;
+  snapshotId: string;
   name: string;
   value: number;
-  currency_id: string;
+  currencyId: string;
 }
 
 export interface ICreateAssetData {
-  snapshot_id: string;
+  snapshotId: string;
   name: string;
   value: number;
-  currency_id: string;
+  currencyId: string;
 }

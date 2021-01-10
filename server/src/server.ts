@@ -1,4 +1,4 @@
-import App from "@/app";
+import App from "@/graphql/app";
 import SQLiteDatabaseProvider from "@/providers/database/impl/SQLiteDatabaseProvider";
 import BcryptHashProvider from "@/providers/hash/impl/BcryptHashProvider";
 import RandTokenProvider from "@/providers/token/impl/RandTokenProvider";
@@ -9,4 +9,4 @@ const token = new RandTokenProvider(64);
 
 const server = new App({ database, hash, token });
 
-server.listen(Number(process.env.PORT));
+server.listen(process.env.PORT);

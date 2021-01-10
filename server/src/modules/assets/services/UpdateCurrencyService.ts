@@ -5,17 +5,22 @@ import {
   ICreateCurrencyInput,
   ICurrency,
 } from "@/modules/assets/entities/ICurrency";
+import { IAppProviders } from "@/providers/IAppProviders";
 
 class UpdateCurrencyService {
   databaseProvider: IDatabaseProvider;
 
-  constructor(databaseProvider: IDatabaseProvider) {
-    this.databaseProvider = databaseProvider;
+  constructor(providers: IAppProviders) {
+    this.databaseProvider = providers.database;
   }
 
   async execute(userId: string, id: string, input: ICreateCurrencyInput) {
+    if (!userId) {
+      throw new AppError("Not authorized", 401);
+    }
+
     const resource = this.databaseProvider.findOne<ICurrency>("currencies", [
-      { field: "user_id", compare: "=", value: userId },
+      { field: "userId", compare: "=", value: userId },
       { field: "id", compare: "=", value: id },
     ]);
 
@@ -24,7 +29,7 @@ class UpdateCurrencyService {
     }
 
     const exists = this.databaseProvider.findOne<ICurrency>("currencies", [
-      { field: "user_id", compare: "=", value: userId },
+      { field: "userId", compare: "=", value: userId },
       { field: "name", compare: "=", value: input.name },
     ]);
 
@@ -37,7 +42,7 @@ class UpdateCurrencyService {
       [{ field: "id", compare: "=", value: id }],
       {
         ...input,
-        user_id: userId,
+        userId,
       },
     );
   }

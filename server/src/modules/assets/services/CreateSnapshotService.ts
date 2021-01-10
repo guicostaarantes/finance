@@ -1,5 +1,6 @@
 import AppError from "@/modules/errors/AppError";
 import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
+import { IAppProviders } from "@/providers/IAppProviders";
 import {
   ICreateSnapshotData,
   ICreateSnapshotInput,
@@ -8,13 +9,18 @@ import {
 class CreateSnapshotService {
   databaseProvider: IDatabaseProvider;
 
-  constructor(databaseProvider: IDatabaseProvider) {
-    this.databaseProvider = databaseProvider;
+  constructor(providers: IAppProviders) {
+    this.databaseProvider = providers.database;
   }
 
   async execute(userId: string, input: ICreateSnapshotInput) {
+    console.log(userId);
+    if (!userId) {
+      throw new AppError("Not authorized", 401);
+    }
+
     const exists = this.databaseProvider.findOne("snapshots", [
-      { field: "user_id", compare: "=", value: userId },
+      { field: "userId", compare: "=", value: userId },
       { field: "date", compare: "=", value: input.date },
     ]);
 
@@ -24,7 +30,7 @@ class CreateSnapshotService {
 
     this.databaseProvider.insertOne<ICreateSnapshotData>("snapshots", {
       ...input,
-      user_id: userId,
+      userId,
     });
   }
 }

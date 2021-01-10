@@ -4,17 +4,22 @@ import {
   ICreateCurrencyData,
   ICreateCurrencyInput,
 } from "@/modules/assets/entities/ICurrency";
+import { IAppProviders } from "@/providers/IAppProviders";
 
 class CreateCurrencyService {
   databaseProvider: IDatabaseProvider;
 
-  constructor(databaseProvider: IDatabaseProvider) {
-    this.databaseProvider = databaseProvider;
+  constructor(providers: IAppProviders) {
+    this.databaseProvider = providers.database;
   }
 
   async execute(userId: string, input: ICreateCurrencyInput) {
+    if (!userId) {
+      throw new AppError("Not authorized", 401);
+    }
+
     const exists = this.databaseProvider.findOne("currencies", [
-      { field: "user_id", compare: "=", value: userId },
+      { field: "userId", compare: "=", value: userId },
       { field: "name", compare: "=", value: input.name },
     ]);
 
@@ -24,7 +29,7 @@ class CreateCurrencyService {
 
     this.databaseProvider.insertOne<ICreateCurrencyData>("currencies", {
       ...input,
-      user_id: userId,
+      userId,
     });
   }
 }

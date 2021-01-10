@@ -7,18 +7,23 @@ import AppError from "@/modules/errors/AppError";
 import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
 import { ISnapshot } from "@/modules/assets/entities/ISnapshot";
 import { ICurrency } from "@/modules/assets/entities/ICurrency";
+import { IAppProviders } from "@/providers/IAppProviders";
 
 class CreateAssetService {
   databaseProvider: IDatabaseProvider;
 
-  constructor(databaseProvider: IDatabaseProvider) {
-    this.databaseProvider = databaseProvider;
+  constructor(providers: IAppProviders) {
+    this.databaseProvider = providers.database;
   }
 
   async execute(userId: string, input: ICreateAssetInput) {
+    if (!userId) {
+      throw new AppError("Not authorized", 401);
+    }
+
     const owner = this.databaseProvider.findOne<ISnapshot>("snapshots", [
-      { field: "user_id", compare: "=", value: userId },
-      { field: "id", compare: "=", value: input.snapshot_id },
+      { field: "userId", compare: "=", value: userId },
+      { field: "id", compare: "=", value: input.snapshotId },
     ]);
 
     if (!owner) {
@@ -26,8 +31,8 @@ class CreateAssetService {
     }
 
     const owner2 = this.databaseProvider.findOne<ICurrency>("currencies", [
-      { field: "user_id", compare: "=", value: userId },
-      { field: "id", compare: "=", value: input.currency_id },
+      { field: "userId", compare: "=", value: userId },
+      { field: "id", compare: "=", value: input.currencyId },
     ]);
 
     if (!owner2) {
@@ -35,7 +40,7 @@ class CreateAssetService {
     }
 
     const exists = this.databaseProvider.findOne<IAsset>("assets", [
-      { field: "snapshot_id", compare: "=", value: input.snapshot_id },
+      { field: "snapshotId", compare: "=", value: input.snapshotId },
       { field: "name", compare: "=", value: input.name },
     ]);
 

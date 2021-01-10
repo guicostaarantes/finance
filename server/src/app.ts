@@ -15,9 +15,9 @@ import LoadDeleteAssetRoute from "@/modules/assets/routes/LoadDeleteAssetRoute";
 import LoadCreateCurrencyRoute from "@/modules/assets/routes/LoadCreateCurrencyRoute";
 import LoadUpdateCurrencyRoute from "@/modules/assets/routes/LoadUpdateCurrencyRoute";
 import LoadDeleteCurrencyRoute from "@/modules/assets/routes/LoadDeleteCurrencyRoute";
-import LoadCreateCurrencyValueRoute from "@/modules/assets/routes/LoadCreateCurrencyRoute";
-import LoadUpdateCurrencyValueRoute from "@/modules/assets/routes/LoadUpdateCurrencyRoute";
-import LoadDeleteCurrencyValueRoute from "@/modules/assets/routes/LoadDeleteCurrencyRoute";
+import LoadCreateCurrencyValueRoute from "@/modules/assets/routes/LoadCreateCurrencyValueRoute";
+import LoadUpdateCurrencyValueRoute from "@/modules/assets/routes/LoadUpdateCurrencyValueRoute";
+import LoadDeleteCurrencyValueRoute from "@/modules/assets/routes/LoadDeleteCurrencyValueRoute";
 
 class App {
   app: Express;

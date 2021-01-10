@@ -11,11 +11,6 @@ class SQLiteDatabaseProvider implements IDatabaseProvider {
     this.database = new sqlite(file);
   }
 
-  findAll(table: string) {
-    const stmt = this.database.prepare(`SELECT * FROM ${table}`);
-    return stmt.all();
-  }
-
   findOne(table: string, conditions: ICondition[]) {
     const stmt = this.database.prepare(
       `SELECT * FROM ${table} WHERE ${conditions
@@ -28,6 +23,20 @@ class SQLiteDatabaseProvider implements IDatabaseProvider {
         .join(" AND ")} LIMIT 1`,
     );
     return stmt.get();
+  }
+
+  findMany(table: string, conditions: ICondition[]) {
+    const stmt = this.database.prepare(
+      `SELECT * FROM ${table} WHERE ${conditions
+        .map(
+          c =>
+            `${c.field} ${c.compare} ${
+              typeof c.value === "string" ? `'${c.value}'` : c.value
+            }`,
+        )
+        .join(" AND ")}`,
+    );
+    return stmt.all();
   }
 
   insertOne<T>(table: string, data: T) {

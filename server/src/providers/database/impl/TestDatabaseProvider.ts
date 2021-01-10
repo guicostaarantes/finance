@@ -10,20 +10,37 @@ class TestDatabaseProvider implements IDatabaseProvider {
     this.database = {};
   }
 
-  findAll(table: string) {
-    if (!this.database[table]) {
-      throw new Error("table does not exist");
-    }
-
-    return this.database[table];
-  }
-
   findOne(table: string, conditions: ICondition[]) {
     if (!this.database[table]) {
       throw new Error("table does not exist");
     }
 
     return this.database[table].find(rec =>
+      conditions.every(con => {
+        switch (con.compare) {
+          case "=":
+            return rec[con.field] == con.value;
+          case "<>":
+            return rec[con.field] != con.value;
+          case ">":
+            return rec[con.field] > con.value;
+          case ">=":
+            return rec[con.field] >= con.value;
+          case "<":
+            return rec[con.field] < con.value;
+          case "<=":
+            return rec[con.field] <= con.value;
+        }
+      }),
+    );
+  }
+
+  findMany(table: string, conditions: ICondition[]) {
+    if (!this.database[table]) {
+      throw new Error("table does not exist");
+    }
+
+    return this.database[table].filter(rec =>
       conditions.every(con => {
         switch (con.compare) {
           case "=":

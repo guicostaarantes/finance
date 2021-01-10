@@ -1,7 +1,7 @@
-import { IAsset } from "@/modules/assets/entities/IAsset";
 import AppError from "@/errors/AppError";
 import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
-import { ISnapshot } from "../entities/ISnapshot";
+import { IAsset } from "@/modules/assets/entities/IAsset";
+import { ISnapshot } from "@/modules/assets/entities/ISnapshot";
 
 class DeleteSnapshotService {
   databaseProvider: IDatabaseProvider;
@@ -20,11 +20,21 @@ class DeleteSnapshotService {
       throw new AppError("Snapshot not found", 404);
     }
 
+    const assets = this.databaseProvider.findMany<IAsset>("assets", [
+      { field: "snapshot_id", compare: "=", value: id },
+    ]);
+
+    assets.forEach(asset => {
+      this.databaseProvider.deleteOne("assets", [
+        { field: "id", compare: "=", value: asset.id },
+      ]);
+    });
+
+    // TODO: delete currency_values related to this
+
     this.databaseProvider.deleteOne("snapshots", [
       { field: "id", compare: "=", value: id },
     ]);
-
-    // TODO: delete assets and currency_values related to this
   }
 }
 

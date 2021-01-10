@@ -1,21 +1,21 @@
 import {
-  IAsset,
-  ICreateAssetData,
-  ICreateAssetInput,
-} from "@/modules/assets/entities/IAsset";
+  ICreateCurrencyValueData,
+  ICreateCurrencyValueInput,
+  ICurrencyValue,
+} from "@/modules/assets/entities/ICurrencyValue";
 import AppError from "@/errors/AppError";
 import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
 import { ISnapshot } from "@/modules/assets/entities/ISnapshot";
 import { ICurrency } from "@/modules/assets/entities/ICurrency";
 
-class CreateAssetService {
+class CreateCurrencyValueService {
   databaseProvider: IDatabaseProvider;
 
   constructor(databaseProvider: IDatabaseProvider) {
     this.databaseProvider = databaseProvider;
   }
 
-  async execute(userId: string, input: ICreateAssetInput) {
+  async execute(userId: string, input: ICreateCurrencyValueInput) {
     const owner = this.databaseProvider.findOne<ISnapshot>("snapshots", [
       { field: "user_id", compare: "=", value: userId },
       { field: "id", compare: "=", value: input.snapshot_id },
@@ -34,17 +34,23 @@ class CreateAssetService {
       throw new AppError("Currency not found", 404);
     }
 
-    const exists = this.databaseProvider.findOne<IAsset>("assets", [
-      { field: "snapshot_id", compare: "=", value: input.snapshot_id },
-      { field: "name", compare: "=", value: input.name },
-    ]);
+    const exists = this.databaseProvider.findOne<ICurrencyValue>(
+      "currency_values",
+      [
+        { field: "snapshot_id", compare: "=", value: input.snapshot_id },
+        { field: "currency_id", compare: "=", value: input.currency_id },
+      ],
+    );
 
     if (exists) {
-      throw new AppError("Asset with same name exists in this snapshot", 409);
+      throw new AppError("Currency value already exists in this snapshot", 409);
     }
 
-    this.databaseProvider.insertOne<ICreateAssetData>("assets", input);
+    this.databaseProvider.insertOne<ICreateCurrencyValueData>(
+      "currency_values",
+      input,
+    );
   }
 }
 
-export default CreateAssetService;
+export default CreateCurrencyValueService;

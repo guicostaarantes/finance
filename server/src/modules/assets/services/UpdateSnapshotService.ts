@@ -14,13 +14,13 @@ class UpdateSnapshotService {
   }
 
   async execute(userId: string, id: string, input: ICreateSnapshotInput) {
-    const owner = this.databaseProvider.findOne("snapshots", [
+    const resource = this.databaseProvider.findOne<ISnapshot>("snapshots", [
       { field: "user_id", compare: "=", value: userId },
       { field: "id", compare: "=", value: id },
     ]);
 
-    if (!owner) {
-      throw new AppError("Access forbidden", 403);
+    if (!resource) {
+      throw new AppError("Snapshot not found", 404);
     }
 
     const exists = this.databaseProvider.findOne<ISnapshot>("snapshots", [

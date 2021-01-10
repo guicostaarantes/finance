@@ -2,6 +2,7 @@ import AppError from "@/errors/AppError";
 import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
 import { IAsset } from "@/modules/assets/entities/IAsset";
 import { ISnapshot } from "@/modules/assets/entities/ISnapshot";
+import { ICurrencyValue } from "@/modules/assets/entities/ICurrencyValue";
 
 class DeleteSnapshotService {
   databaseProvider: IDatabaseProvider;
@@ -30,7 +31,16 @@ class DeleteSnapshotService {
       ]);
     });
 
-    // TODO: delete currency_values related to this
+    const currencyValues = this.databaseProvider.findMany<ICurrencyValue>(
+      "currency_values",
+      [{ field: "snapshot_id", compare: "=", value: id }],
+    );
+
+    currencyValues.forEach(currencyValue => {
+      this.databaseProvider.deleteOne("assets", [
+        { field: "id", compare: "=", value: currencyValue.id },
+      ]);
+    });
 
     this.databaseProvider.deleteOne("snapshots", [
       { field: "id", compare: "=", value: id },

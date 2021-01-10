@@ -15,10 +15,15 @@ class CreateCurrencyValueService {
     this.databaseProvider = databaseProvider;
   }
 
-  async execute(userId: string, input: ICreateCurrencyValueInput) {
+  async execute(
+    userId: string,
+    snapshotId: string,
+    currencyId: string,
+    input: ICreateCurrencyValueInput,
+  ) {
     const owner = this.databaseProvider.findOne<ISnapshot>("snapshots", [
       { field: "user_id", compare: "=", value: userId },
-      { field: "id", compare: "=", value: input.snapshot_id },
+      { field: "id", compare: "=", value: snapshotId },
     ]);
 
     if (!owner) {
@@ -27,7 +32,7 @@ class CreateCurrencyValueService {
 
     const owner2 = this.databaseProvider.findOne<ICurrency>("currencies", [
       { field: "user_id", compare: "=", value: userId },
-      { field: "id", compare: "=", value: input.currency_id },
+      { field: "id", compare: "=", value: currencyId },
     ]);
 
     if (!owner2) {
@@ -37,8 +42,8 @@ class CreateCurrencyValueService {
     const exists = this.databaseProvider.findOne<ICurrencyValue>(
       "currency_values",
       [
-        { field: "snapshot_id", compare: "=", value: input.snapshot_id },
-        { field: "currency_id", compare: "=", value: input.currency_id },
+        { field: "snapshot_id", compare: "=", value: snapshotId },
+        { field: "currency_id", compare: "=", value: currencyId },
       ],
     );
 
@@ -48,7 +53,7 @@ class CreateCurrencyValueService {
 
     this.databaseProvider.insertOne<ICreateCurrencyValueData>(
       "currency_values",
-      input,
+      { ...input, snapshot_id: snapshotId, currency_id: currencyId },
     );
   }
 }

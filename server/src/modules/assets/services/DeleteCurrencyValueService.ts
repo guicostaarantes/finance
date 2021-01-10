@@ -11,10 +11,13 @@ class DeleteCurrencyValueService {
     this.databaseProvider = databaseProvider;
   }
 
-  async execute(userId: string, id: string) {
+  async execute(userId: string, snapshotId: string, currencyId: string) {
     const resource = this.databaseProvider.findOne<ICurrencyValue>(
       "currency_values",
-      [{ field: "id", compare: "=", value: id }],
+      [
+        { field: "snapshot_id", compare: "=", value: snapshotId },
+        { field: "currency_id", compare: "=", value: currencyId },
+      ],
     );
 
     if (!resource) {
@@ -23,7 +26,7 @@ class DeleteCurrencyValueService {
 
     const owner = this.databaseProvider.findOne<ISnapshot>("snapshots", [
       { field: "user_id", compare: "=", value: userId },
-      { field: "id", compare: "=", value: resource.snapshot_id },
+      { field: "id", compare: "=", value: snapshotId },
     ]);
 
     if (!owner) {
@@ -43,7 +46,8 @@ class DeleteCurrencyValueService {
     }
 
     this.databaseProvider.deleteOne("currency_values", [
-      { field: "id", compare: "=", value: id },
+      { field: "snapshot_id", compare: "=", value: snapshotId },
+      { field: "currency_id", compare: "=", value: currencyId },
     ]);
   }
 }

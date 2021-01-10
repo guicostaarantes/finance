@@ -6,8 +6,6 @@ export interface ICurrencyValue {
 }
 
 export interface ICreateCurrencyValueInput {
-  snapshot_id: string;
-  currency_id: string;
   value: number;
 }
 

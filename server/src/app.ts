@@ -5,7 +5,6 @@ import { Express } from "express-serve-static-core";
 import { IAppProviders } from "@/providers/IAppProviders";
 import AppError from "@/errors/AppError";
 import LoadCreateUserRoute from "@/modules/users/routes/LoadCreateUserRoute";
-import LoadFindUserByIdRoute from "@/modules/users/routes/LoadFindUserByIdRoute";
 import LoadAuthenticateUserRoute from "@/modules/users/routes/LoadAuthenticateUserRoute";
 import LoadCreateSnapshotRoute from "./modules/assets/routes/LoadCreateSnapshotRoute";
 import LoadUpdateSnapshotRoute from "./modules/assets/routes/LoadUpdateSnapshotRoute";
@@ -13,6 +12,12 @@ import LoadDeleteSnapshotRoute from "./modules/assets/routes/LoadDeleteSnapshotR
 import LoadCreateAssetRoute from "@/modules/assets/routes/LoadCreateAssetRoute";
 import LoadUpdateAssetRoute from "@/modules/assets/routes/LoadUpdateAssetRoute";
 import LoadDeleteAssetRoute from "@/modules/assets/routes/LoadDeleteAssetRoute";
+import LoadCreateCurrencyRoute from "@/modules/assets/routes/LoadCreateCurrencyRoute";
+import LoadUpdateCurrencyRoute from "@/modules/assets/routes/LoadUpdateCurrencyRoute";
+import LoadDeleteCurrencyRoute from "@/modules/assets/routes/LoadDeleteCurrencyRoute";
+import LoadCreateCurrencyValueRoute from "@/modules/assets/routes/LoadCreateCurrencyRoute";
+import LoadUpdateCurrencyValueRoute from "@/modules/assets/routes/LoadUpdateCurrencyRoute";
+import LoadDeleteCurrencyValueRoute from "@/modules/assets/routes/LoadDeleteCurrencyRoute";
 
 class App {
   app: Express;
@@ -26,7 +31,6 @@ class App {
     this.app.use(express.json());
 
     LoadCreateUserRoute(this.app, this.providers);
-    LoadFindUserByIdRoute(this.app, this.providers);
     LoadAuthenticateUserRoute(this.app, this.providers);
     LoadCreateSnapshotRoute(this.app, this.providers);
     LoadUpdateSnapshotRoute(this.app, this.providers);
@@ -34,6 +38,12 @@ class App {
     LoadCreateAssetRoute(this.app, this.providers);
     LoadUpdateAssetRoute(this.app, this.providers);
     LoadDeleteAssetRoute(this.app, this.providers);
+    LoadCreateCurrencyRoute(this.app, this.providers);
+    LoadUpdateCurrencyRoute(this.app, this.providers);
+    LoadDeleteCurrencyRoute(this.app, this.providers);
+    LoadCreateCurrencyValueRoute(this.app, this.providers);
+    LoadUpdateCurrencyValueRoute(this.app, this.providers);
+    LoadDeleteCurrencyValueRoute(this.app, this.providers);
 
     this.app.use((err, _req, res, _next) => {
       if (err instanceof AppError) {

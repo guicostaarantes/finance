@@ -1,6 +1,7 @@
 import {
   ICurrencyValue,
   ICreateCurrencyValueInput,
+  ICreateCurrencyValueData,
 } from "@/modules/assets/entities/ICurrencyValue";
 import AppError from "@/errors/AppError";
 import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
@@ -14,10 +15,18 @@ class UpdateCurrencyValueService {
     this.databaseProvider = databaseProvider;
   }
 
-  async execute(userId: string, id: string, input: ICreateCurrencyValueInput) {
+  async execute(
+    userId: string,
+    snapshotId: string,
+    currencyId: string,
+    input: ICreateCurrencyValueInput,
+  ) {
     const resource = this.databaseProvider.findOne<ICurrencyValue>(
       "currency_values",
-      [{ field: "id", compare: "=", value: id }],
+      [
+        { field: "snapshot_id", compare: "=", value: snapshotId },
+        { field: "currency_id", compare: "=", value: currencyId },
+      ],
     );
 
     if (!resource) {
@@ -26,47 +35,29 @@ class UpdateCurrencyValueService {
 
     const owner = this.databaseProvider.findOne<ISnapshot>("snapshots", [
       { field: "user_id", compare: "=", value: userId },
-      { field: "id", compare: "=", value: resource.snapshot_id },
+      { field: "id", compare: "=", value: snapshotId },
     ]);
 
     if (!owner) {
-      throw new AppError("Currency value not found", 404);
-    }
-
-    const candidate = this.databaseProvider.findOne<ISnapshot>("snapshots", [
-      { field: "user_id", compare: "=", value: userId },
-      { field: "id", compare: "=", value: input.snapshot_id },
-    ]);
-
-    if (!candidate) {
       throw new AppError("Snapshot not found", 404);
     }
 
-    const candidate2 = this.databaseProvider.findOne<ICurrency>("currencies", [
+    const owner2 = this.databaseProvider.findOne<ICurrency>("currencies", [
       { field: "user_id", compare: "=", value: userId },
-      { field: "id", compare: "=", value: input.currency_id },
+      { field: "id", compare: "=", value: currencyId },
     ]);
 
-    if (!candidate2) {
+    if (!owner2) {
       throw new AppError("Currency not found", 404);
     }
 
-    const exists = this.databaseProvider.findOne<ICurrencyValue>(
+    this.databaseProvider.updateOne<ICreateCurrencyValueData>(
       "currency_values",
       [
-        { field: "snapshot_id", compare: "=", value: input.snapshot_id },
-        { field: "currency_id", compare: "=", value: input.currency_id },
+        { field: "snapshot_id", compare: "=", value: snapshotId },
+        { field: "currency_id", compare: "=", value: currencyId },
       ],
-    );
-
-    if (exists && exists.id != id) {
-      throw new AppError("Currency value already exists in this snapshot", 409);
-    }
-
-    this.databaseProvider.updateOne<ICreateCurrencyValueInput>(
-      "currency_values",
-      [{ field: "id", compare: "=", value: id }],
-      input,
+      { ...input, snapshot_id: snapshotId, currency_id: currencyId },
     );
   }
 }

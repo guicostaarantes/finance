@@ -3,10 +3,16 @@ import cors from "cors";
 import "express-async-errors";
 import { Express } from "express-serve-static-core";
 import { IAppProviders } from "@/providers/IAppProviders";
+import AppError from "@/errors/AppError";
 import LoadCreateUserRoute from "@/modules/users/routes/LoadCreateUserRoute";
 import LoadFindUserByIdRoute from "@/modules/users/routes/LoadFindUserByIdRoute";
 import LoadAuthenticateUserRoute from "@/modules/users/routes/LoadAuthenticateUserRoute";
-import AppError from "@/errors/AppError";
+import LoadCreateSnapshotRoute from "./modules/assets/routes/LoadCreateSnapshotRoute";
+import LoadUpdateSnapshotRoute from "./modules/assets/routes/LoadUpdateSnapshotRoute";
+import LoadDeleteSnapshotRoute from "./modules/assets/routes/LoadDeleteSnapshotRoute";
+import LoadCreateAssetRoute from "@/modules/assets/routes/LoadCreateAssetRoute";
+import LoadUpdateAssetRoute from "@/modules/assets/routes/LoadUpdateAssetRoute";
+import LoadDeleteAssetRoute from "@/modules/assets/routes/LoadDeleteAssetRoute";
 
 class App {
   app: Express;
@@ -22,6 +28,12 @@ class App {
     LoadCreateUserRoute(this.app, this.providers);
     LoadFindUserByIdRoute(this.app, this.providers);
     LoadAuthenticateUserRoute(this.app, this.providers);
+    LoadCreateSnapshotRoute(this.app, this.providers);
+    LoadUpdateSnapshotRoute(this.app, this.providers);
+    LoadDeleteSnapshotRoute(this.app, this.providers);
+    LoadCreateAssetRoute(this.app, this.providers);
+    LoadUpdateAssetRoute(this.app, this.providers);
+    LoadDeleteAssetRoute(this.app, this.providers);
 
     this.app.use((err, _req, res, _next) => {
       if (err instanceof AppError) {

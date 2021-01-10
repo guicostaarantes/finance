@@ -75,6 +75,31 @@ class TestDatabaseProvider implements IDatabaseProvider {
       this.database[table][index] = { ...this.database[table][index], ...data };
     }
   }
+
+  deleteOne(table: string, conditions: ICondition[]) {
+    const index = this.database[table].findIndex(rec =>
+      conditions.every(con => {
+        switch (con.compare) {
+          case "=":
+            return rec[con.field] == con.value;
+          case "<>":
+            return rec[con.field] != con.value;
+          case ">":
+            return rec[con.field] > con.value;
+          case ">=":
+            return rec[con.field] >= con.value;
+          case "<":
+            return rec[con.field] < con.value;
+          case "<=":
+            return rec[con.field] <= con.value;
+        }
+      }),
+    );
+
+    if (index >= 0) {
+      this.database[table].slice(index, 1);
+    }
+  }
 }
 
 export default TestDatabaseProvider;

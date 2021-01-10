@@ -1,12 +1,12 @@
 import {
-  IAuthenticateUserData,
+  ISession,
   IAuthenticateUserInput,
 } from "@/modules/users/entities/IAuth";
 import AppError from "@/errors/AppError";
 import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
 import { IHashProvider } from "@/providers/hash/IHashProvider";
 import { ITokenProvider } from "@/providers/Token/ITokenProvider";
-import { IUser } from "../entities/IUser";
+import { IUser } from "@/modules/users/entities/IUser";
 
 class AuthenticateUserService {
   databaseProvider: IDatabaseProvider;
@@ -46,7 +46,7 @@ class AuthenticateUserService {
       {
         field: "expires_at",
         compare: ">",
-        value: String((Date.now() / 1000) >> 0),
+        value: (Date.now() / 1000) >> 0,
       },
     ]);
 
@@ -58,14 +58,14 @@ class AuthenticateUserService {
       );
     }
 
-    const data: IAuthenticateUserData = {
+    const data: ISession = {
       user_id: user.id,
       token: this.tokenProvider.generate(),
       created_at: (Date.now() / 1000) >> 0,
       expires_at: ((Date.now() / 1000) >> 0) + 1800,
     };
 
-    this.databaseProvider.insertOne<IAuthenticateUserData>("sessions", data);
+    this.databaseProvider.insertOne<ISession>("sessions", data);
 
     return data;
   }

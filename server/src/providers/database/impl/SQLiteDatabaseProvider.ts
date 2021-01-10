@@ -57,6 +57,15 @@ class SQLiteDatabaseProvider implements IDatabaseProvider {
     );
     return stmt.run();
   }
+
+  deleteOne(table: string, conditions: ICondition[]) {
+    const stmt = this.database.prepare(
+      `DELETE FROM ${table} WHERE ${conditions
+        .map(c => `${c.field} ${c.compare} ${c.value}`)
+        .join(" AND ")} LIMIT 1`,
+    );
+    return stmt.run();
+  }
 }
 
 export default SQLiteDatabaseProvider;

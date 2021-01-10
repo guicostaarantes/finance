@@ -1,6 +1,6 @@
 import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
 import { IHashProvider } from "@/providers/hash/IHashProvider";
-import { ITokenProvider } from "./Token/ITokenProvider";
+import { ITokenProvider } from "@/providers/Token/ITokenProvider";
 
 export interface IAppProviders {
   database: IDatabaseProvider;

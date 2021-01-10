@@ -3,7 +3,7 @@ export interface IAuthenticateUserInput {
   password: string;
 }
 
-export interface IAuthenticateUserData {
+export interface ISession {
   user_id: string;
   token: string;
   created_at: number;

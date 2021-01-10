@@ -16,11 +16,10 @@ class CreateSnapshotService {
     const exists = this.databaseProvider.findOne("snapshots", [
       { field: "user_id", compare: "=", value: userId },
       { field: "date", compare: "=", value: input.date },
-      { field: "name", compare: "=", value: input.name },
     ]);
 
     if (exists) {
-      throw new AppError("Snapshot with same name and date exists", 409);
+      throw new AppError("Snapshot with same date exists", 409);
     }
 
     this.databaseProvider.insertOne<ICreateSnapshotData>("snapshots", {

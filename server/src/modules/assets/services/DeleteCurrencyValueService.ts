@@ -1,5 +1,5 @@
 import { ICurrencyValue } from "@/modules/assets/entities/ICurrencyValue";
-import AppError from "@/errors/AppError";
+import AppError from "@/modules/errors/AppError";
 import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
 import { ISnapshot } from "@/modules/assets/entities/ISnapshot";
 import { IAsset } from "@/modules/assets/entities/IAsset";

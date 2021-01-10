@@ -2,7 +2,7 @@ import {
   ISession,
   IAuthenticateUserInput,
 } from "@/modules/users/entities/IAuth";
-import AppError from "@/errors/AppError";
+import AppError from "@/modules/errors/AppError";
 import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
 import { IHashProvider } from "@/providers/hash/IHashProvider";
 import { ITokenProvider } from "@/providers/Token/ITokenProvider";

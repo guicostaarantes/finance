@@ -2,7 +2,7 @@ import {
   ICreateUserData,
   ICreateUserInput,
 } from "@/modules/users/entities/IUser";
-import AppError from "@/errors/AppError";
+import AppError from "@/modules/errors/AppError";
 import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
 import { IHashProvider } from "@/providers/hash/IHashProvider";
 

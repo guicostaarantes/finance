@@ -1,5 +1,5 @@
 import { ISession } from "@/modules/users/entities/IAuth";
-import AppError from "@/errors/AppError";
+import AppError from "@/modules/errors/AppError";
 import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
 
 class ValidateTokenService {

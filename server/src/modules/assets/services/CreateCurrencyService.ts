@@ -1,4 +1,4 @@
-import AppError from "@/errors/AppError";
+import AppError from "@/modules/errors/AppError";
 import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
 import {
   ICreateCurrencyData,

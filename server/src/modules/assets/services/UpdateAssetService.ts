@@ -1,5 +1,5 @@
 import { IAsset, ICreateAssetInput } from "@/modules/assets/entities/IAsset";
-import AppError from "@/errors/AppError";
+import AppError from "@/modules/errors/AppError";
 import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
 import { ISnapshot } from "@/modules/assets/entities/ISnapshot";
 import { ICurrency } from "@/modules/assets/entities/ICurrency";

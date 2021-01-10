@@ -3,7 +3,7 @@ import cors from "cors";
 import "express-async-errors";
 import { Express } from "express-serve-static-core";
 import { IAppProviders } from "@/providers/IAppProviders";
-import AppError from "@/errors/AppError";
+import AppError from "@/modules/errors/AppError";
 import LoadCreateUserRoute from "@/modules/users/routes/LoadCreateUserRoute";
 import LoadAuthenticateUserRoute from "@/modules/users/routes/LoadAuthenticateUserRoute";
 import LoadCreateSnapshotRoute from "./modules/assets/routes/LoadCreateSnapshotRoute";

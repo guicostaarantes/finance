@@ -1,5 +1,5 @@
 import { IAsset, ICreateAssetInput } from "@/modules/assets/entities/IAsset";
-import AppError from "@/modules/errors/AppError";
+import { IErrorProvider } from "@/providers/error/IErrorProvider";
 import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
 import { ISnapshot } from "@/modules/assets/entities/ISnapshot";
 import { ICurrency } from "@/modules/assets/entities/ICurrency";
@@ -7,14 +7,16 @@ import { IAppProviders } from "@/providers/IAppProviders";
 
 class UpdateAssetService {
   databaseProvider: IDatabaseProvider;
+  errorProvider: IErrorProvider;
 
   constructor(providers: IAppProviders) {
     this.databaseProvider = providers.database;
+    this.errorProvider = providers.error;
   }
 
   async execute(userId: string, id: string, input: ICreateAssetInput) {
     if (!userId) {
-      throw new AppError("Not authorized", 401);
+      this.errorProvider.throw("Not authorized", "401");
     }
 
     const resource = this.databaseProvider.findOne<IAsset>("assets", [
@@ -22,7 +24,7 @@ class UpdateAssetService {
     ]);
 
     if (!resource) {
-      throw new AppError("Asset not found", 404);
+      this.errorProvider.throw("Asset not found", "404");
     }
 
     const owner = this.databaseProvider.findOne<ISnapshot>("snapshots", [
@@ -31,7 +33,7 @@ class UpdateAssetService {
     ]);
 
     if (!owner) {
-      throw new AppError("Asset not found", 404);
+      this.errorProvider.throw("Asset not found", "404");
     }
 
     const candidate = this.databaseProvider.findOne<ISnapshot>("snapshots", [
@@ -40,7 +42,7 @@ class UpdateAssetService {
     ]);
 
     if (!candidate) {
-      throw new AppError("Snapshot not found", 404);
+      this.errorProvider.throw("Snapshot not found", "404");
     }
 
     const candidate2 = this.databaseProvider.findOne<ICurrency>("currencies", [
@@ -49,7 +51,7 @@ class UpdateAssetService {
     ]);
 
     if (!candidate2) {
-      throw new AppError("Currency not found", 404);
+      this.errorProvider.throw("Currency not found", "404");
     }
 
     const exists = this.databaseProvider.findOne<IAsset>("assets", [
@@ -58,7 +60,10 @@ class UpdateAssetService {
     ]);
 
     if (exists && exists.id != id) {
-      throw new AppError("Asset with same name exists in this snapshot", 409);
+      this.errorProvider.throw(
+        "Asset with same name exists in this snapshot",
+        "409",
+      );
     }
 
     this.databaseProvider.updateOne<ICreateAssetInput>(

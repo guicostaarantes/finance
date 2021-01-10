@@ -1,18 +1,20 @@
 import { ISession } from "@/modules/users/entities/IAuth";
-import AppError from "@/modules/errors/AppError";
+import { IErrorProvider } from "@/providers/error/IErrorProvider";
 import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
 import { IAppProviders } from "@/providers/IAppProviders";
 
 class ValidateTokenService {
   databaseProvider: IDatabaseProvider;
+  errorProvider: IErrorProvider;
 
   constructor(providers: IAppProviders) {
     this.databaseProvider = providers.database;
+    this.errorProvider = providers.error;
   }
 
   async execute(token: string) {
     if (!token) {
-      throw new AppError("Invalid credentials", 401);
+      this.errorProvider.throw("Invalid credentials", "401");
     }
 
     const session = this.databaseProvider.findOne<ISession>("sessions", [
@@ -21,7 +23,7 @@ class ValidateTokenService {
     ]);
 
     if (!session) {
-      throw new AppError("Invalid credentials", 401);
+      this.errorProvider.throw("Invalid credentials", "401");
     }
 
     return session.userId;

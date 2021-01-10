@@ -3,7 +3,7 @@ import {
   ICreateCurrencyValueInput,
   ICurrencyValue,
 } from "@/modules/assets/entities/ICurrencyValue";
-import AppError from "@/modules/errors/AppError";
+import { IErrorProvider } from "@/providers/error/IErrorProvider";
 import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
 import { ISnapshot } from "@/modules/assets/entities/ISnapshot";
 import { ICurrency } from "@/modules/assets/entities/ICurrency";
@@ -11,9 +11,11 @@ import { IAppProviders } from "@/providers/IAppProviders";
 
 class CreateCurrencyValueService {
   databaseProvider: IDatabaseProvider;
+  errorProvider: IErrorProvider;
 
   constructor(providers: IAppProviders) {
     this.databaseProvider = providers.database;
+    this.errorProvider = providers.error;
   }
 
   async execute(
@@ -23,7 +25,7 @@ class CreateCurrencyValueService {
     input: ICreateCurrencyValueInput,
   ) {
     if (!userId) {
-      throw new AppError("Not authorized", 401);
+      this.errorProvider.throw("Not authorized", "401");
     }
 
     const owner = this.databaseProvider.findOne<ISnapshot>("snapshots", [
@@ -32,7 +34,7 @@ class CreateCurrencyValueService {
     ]);
 
     if (!owner) {
-      throw new AppError("Snapshot not found", 404);
+      this.errorProvider.throw("Snapshot not found", "404");
     }
 
     const owner2 = this.databaseProvider.findOne<ICurrency>("currencies", [
@@ -41,7 +43,7 @@ class CreateCurrencyValueService {
     ]);
 
     if (!owner2) {
-      throw new AppError("Currency not found", 404);
+      this.errorProvider.throw("Currency not found", "404");
     }
 
     const exists = this.databaseProvider.findOne<ICurrencyValue>(
@@ -53,7 +55,10 @@ class CreateCurrencyValueService {
     );
 
     if (exists) {
-      throw new AppError("Currency value already exists in this snapshot", 409);
+      this.errorProvider.throw(
+        "Currency value already exists in this snapshot",
+        "409",
+      );
     }
 
     this.databaseProvider.insertOne<ICreateCurrencyValueData>(

@@ -1,4 +1,4 @@
-import AppError from "@/modules/errors/AppError";
+import { IErrorProvider } from "@/providers/error/IErrorProvider";
 import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
 import {
   ICreateCurrencyData,
@@ -8,14 +8,16 @@ import { IAppProviders } from "@/providers/IAppProviders";
 
 class CreateCurrencyService {
   databaseProvider: IDatabaseProvider;
+  errorProvider: IErrorProvider;
 
   constructor(providers: IAppProviders) {
     this.databaseProvider = providers.database;
+    this.errorProvider = providers.error;
   }
 
   async execute(userId: string, input: ICreateCurrencyInput) {
     if (!userId) {
-      throw new AppError("Not authorized", 401);
+      this.errorProvider.throw("Not authorized", "401");
     }
 
     const exists = this.databaseProvider.findOne("currencies", [
@@ -24,7 +26,7 @@ class CreateCurrencyService {
     ]);
 
     if (exists) {
-      throw new AppError("Currency with same name exists", 409);
+      this.errorProvider.throw("Currency with same name exists", "409");
     }
 
     this.databaseProvider.insertOne<ICreateCurrencyData>("currencies", {

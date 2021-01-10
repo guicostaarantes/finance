@@ -2,7 +2,7 @@ import {
   ISession,
   IAuthenticateUserInput,
 } from "@/modules/users/entities/IAuth";
-import AppError from "@/modules/errors/AppError";
+import { IErrorProvider } from "@/providers/error/IErrorProvider";
 import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
 import { IHashProvider } from "@/providers/hash/IHashProvider";
 import { ITokenProvider } from "@/providers/Token/ITokenProvider";
@@ -11,11 +11,13 @@ import { IAppProviders } from "@/providers/IAppProviders";
 
 class AuthenticateUserService {
   databaseProvider: IDatabaseProvider;
+  errorProvider: IErrorProvider;
   hashProvider: IHashProvider;
   tokenProvider: ITokenProvider;
 
   constructor(providers: IAppProviders) {
     this.databaseProvider = providers.database;
+    this.errorProvider = providers.error;
     this.hashProvider = providers.hash;
     this.tokenProvider = providers.token;
   }
@@ -26,7 +28,7 @@ class AuthenticateUserService {
     ]);
 
     if (!user) {
-      throw new AppError("Incorrect credentials", 401);
+      this.errorProvider.throw("Incorrect credentials", "401");
     }
 
     const valid = await this.hashProvider.compare(
@@ -35,7 +37,7 @@ class AuthenticateUserService {
     );
 
     if (!valid) {
-      throw new AppError("Incorrect credentials", 401);
+      this.errorProvider.throw("Incorrect credentials", "401");
     }
 
     const activeSession = this.databaseProvider.findOne<IUser>("sessions", [

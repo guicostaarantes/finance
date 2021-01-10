@@ -3,22 +3,24 @@ import {
   ICreateAssetData,
   ICreateAssetInput,
 } from "@/modules/assets/entities/IAsset";
-import AppError from "@/modules/errors/AppError";
 import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
 import { ISnapshot } from "@/modules/assets/entities/ISnapshot";
 import { ICurrency } from "@/modules/assets/entities/ICurrency";
 import { IAppProviders } from "@/providers/IAppProviders";
+import { IErrorProvider } from "@/providers/error/IErrorProvider";
 
 class CreateAssetService {
   databaseProvider: IDatabaseProvider;
+  errorProvider: IErrorProvider;
 
   constructor(providers: IAppProviders) {
     this.databaseProvider = providers.database;
+    this.errorProvider = providers.error;
   }
 
   async execute(userId: string, input: ICreateAssetInput) {
     if (!userId) {
-      throw new AppError("Not authorized", 401);
+      this.errorProvider.throw("Not authorized", "401");
     }
 
     const owner = this.databaseProvider.findOne<ISnapshot>("snapshots", [
@@ -27,7 +29,7 @@ class CreateAssetService {
     ]);
 
     if (!owner) {
-      throw new AppError("Snapshot not found", 404);
+      this.errorProvider.throw("Snapshot not found", "404");
     }
 
     const owner2 = this.databaseProvider.findOne<ICurrency>("currencies", [
@@ -36,7 +38,7 @@ class CreateAssetService {
     ]);
 
     if (!owner2) {
-      throw new AppError("Currency not found", 404);
+      this.errorProvider.throw("Currency not found", "404");
     }
 
     const exists = this.databaseProvider.findOne<IAsset>("assets", [
@@ -45,7 +47,10 @@ class CreateAssetService {
     ]);
 
     if (exists) {
-      throw new AppError("Asset with same name exists in this snapshot", 409);
+      this.errorProvider.throw(
+        "Asset with same name exists in this snapshot",
+        "409",
+      );
     }
 
     this.databaseProvider.insertOne<ICreateAssetData>("assets", input);

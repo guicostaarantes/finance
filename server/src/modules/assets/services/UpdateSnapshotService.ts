@@ -1,4 +1,4 @@
-import AppError from "@/modules/errors/AppError";
+import { IErrorProvider } from "@/providers/error/IErrorProvider";
 import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
 import { IAppProviders } from "@/providers/IAppProviders";
 import {
@@ -9,14 +9,16 @@ import {
 
 class UpdateSnapshotService {
   databaseProvider: IDatabaseProvider;
+  errorProvider: IErrorProvider;
 
   constructor(providers: IAppProviders) {
     this.databaseProvider = providers.database;
+    this.errorProvider = providers.error;
   }
 
   async execute(userId: string, id: string, input: ICreateSnapshotInput) {
     if (!userId) {
-      throw new AppError("Not authorized", 401);
+      this.errorProvider.throw("Not authorized", "401");
     }
 
     const resource = this.databaseProvider.findOne<ISnapshot>("snapshots", [
@@ -25,7 +27,7 @@ class UpdateSnapshotService {
     ]);
 
     if (!resource) {
-      throw new AppError("Snapshot not found", 404);
+      this.errorProvider.throw("Snapshot not found", "404");
     }
 
     const exists = this.databaseProvider.findOne<ISnapshot>("snapshots", [
@@ -34,7 +36,7 @@ class UpdateSnapshotService {
     ]);
 
     if (exists && exists.id != id) {
-      throw new AppError("Snapshot with same date exists", 409);
+      this.errorProvider.throw("Snapshot with same date exists", "409");
     }
 
     this.databaseProvider.updateOne<ICreateSnapshotData>(

@@ -1,5 +1,5 @@
 import { ICurrencyValue } from "@/modules/assets/entities/ICurrencyValue";
-import AppError from "@/modules/errors/AppError";
+import { IErrorProvider } from "@/providers/error/IErrorProvider";
 import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
 import { ISnapshot } from "@/modules/assets/entities/ISnapshot";
 import { IAsset } from "@/modules/assets/entities/IAsset";
@@ -7,14 +7,16 @@ import { IAppProviders } from "@/providers/IAppProviders";
 
 class DeleteCurrencyValueService {
   databaseProvider: IDatabaseProvider;
+  errorProvider: IErrorProvider;
 
   constructor(providers: IAppProviders) {
     this.databaseProvider = providers.database;
+    this.errorProvider = providers.error;
   }
 
   async execute(userId: string, snapshotId: string, currencyId: string) {
     if (!userId) {
-      throw new AppError("Not authorized", 401);
+      this.errorProvider.throw("Not authorized", "401");
     }
 
     const resource = this.databaseProvider.findOne<ICurrencyValue>(
@@ -26,7 +28,7 @@ class DeleteCurrencyValueService {
     );
 
     if (!resource) {
-      throw new AppError("Currency value not found", 404);
+      this.errorProvider.throw("Currency value not found", "404");
     }
 
     const owner = this.databaseProvider.findOne<ISnapshot>("snapshots", [
@@ -35,7 +37,7 @@ class DeleteCurrencyValueService {
     ]);
 
     if (!owner) {
-      throw new AppError("Currency value not found", 404);
+      this.errorProvider.throw("Currency value not found", "404");
     }
 
     const assetDependency = this.databaseProvider.findMany<IAsset>("assets", [
@@ -44,9 +46,9 @@ class DeleteCurrencyValueService {
     ]);
 
     if (assetDependency.length) {
-      throw new AppError(
+      this.errorProvider.throw(
         "Currency value cannot be deleted since assets depend on it",
-        409,
+        "409",
       );
     }
 

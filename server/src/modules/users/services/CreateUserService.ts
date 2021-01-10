@@ -2,17 +2,19 @@ import {
   ICreateUserData,
   ICreateUserInput,
 } from "@/modules/users/entities/IUser";
-import AppError from "@/modules/errors/AppError";
+import { IErrorProvider } from "@/providers/error/IErrorProvider";
 import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
 import { IHashProvider } from "@/providers/hash/IHashProvider";
 import { IAppProviders } from "@/providers/IAppProviders";
 
 class CreateUserService {
   databaseProvider: IDatabaseProvider;
+  errorProvider: IErrorProvider;
   hashProvider: IHashProvider;
 
   constructor(providers: IAppProviders) {
     this.databaseProvider = providers.database;
+    this.errorProvider = providers.error;
     this.hashProvider = providers.hash;
   }
 
@@ -22,7 +24,10 @@ class CreateUserService {
     ]);
 
     if (exists) {
-      throw new AppError("User with same email already registered", 409);
+      this.errorProvider.throw(
+        "User with same email already registered",
+        "409",
+      );
     }
 
     const data: ICreateUserData = {

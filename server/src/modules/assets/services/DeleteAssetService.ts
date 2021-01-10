@@ -1,19 +1,21 @@
 import { IAsset } from "@/modules/assets/entities/IAsset";
-import AppError from "@/modules/errors/AppError";
+import { IErrorProvider } from "@/providers/error/IErrorProvider";
 import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
 import { IAppProviders } from "@/providers/IAppProviders";
 import { ISnapshot } from "../entities/ISnapshot";
 
 class DeleteAssetService {
   databaseProvider: IDatabaseProvider;
+  errorProvider: IErrorProvider;
 
   constructor(providers: IAppProviders) {
     this.databaseProvider = providers.database;
+    this.errorProvider = providers.error;
   }
 
   async execute(userId: string, id: string) {
     if (!userId) {
-      throw new AppError("Not authorized", 401);
+      this.errorProvider.throw("Not authorized", "401");
     }
 
     const resource = this.databaseProvider.findOne<IAsset>("assets", [
@@ -21,7 +23,7 @@ class DeleteAssetService {
     ]);
 
     if (!resource) {
-      throw new AppError("Asset not found", 404);
+      this.errorProvider.throw("Asset not found", "404");
     }
 
     const owner = this.databaseProvider.findOne<ISnapshot>("snapshots", [
@@ -30,7 +32,7 @@ class DeleteAssetService {
     ]);
 
     if (!owner) {
-      throw new AppError("Asset not found", 404);
+      this.errorProvider.throw("Asset not found", "404");
     }
 
     this.databaseProvider.deleteOne("assets", [

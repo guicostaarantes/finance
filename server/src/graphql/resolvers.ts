@@ -34,6 +34,30 @@ import { IAppProviders } from "@/providers/IAppProviders";
 
 const resolvers = {
   Date: GraphQLDate,
+  SnapshotID: {
+    id: (parent: string) => parent,
+    content: async (
+      parent: string,
+      _args: any,
+      context: { providers: IAppProviders; userId: string },
+      _info: any,
+    ) => {
+      const service = new GetSnapshotService(context.providers);
+      return await service.execute(context.userId, parent);
+    },
+  },
+  CurrencyID: {
+    id: (parent: string) => parent,
+    content: async (
+      parent: string,
+      _args: any,
+      context: { providers: IAppProviders; userId: string },
+      _info: any,
+    ) => {
+      const service = new GetCurrencyService(context.providers);
+      return await service.execute(context.userId, parent);
+    },
+  },
   Query: {
     AuthenticateUser: async (
       _parent: any,

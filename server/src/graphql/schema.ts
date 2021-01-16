@@ -43,23 +43,33 @@ const schema = gql`
     date: Date!
   }
 
+  type SnapshotID {
+    id: ID!
+    content: Snapshot!
+  }
+
   type Currency {
     id: ID!
     name: String!
   }
 
+  type CurrencyID {
+    id: ID!
+    content: Currency!
+  }
+
   type CurrencyValue {
-    snapshotId: ID!
-    currencyId: ID!
+    snapshotId: SnapshotID!
+    currencyId: CurrencyID!
     price: Float!
   }
 
   type Asset {
     id: ID!
-    snapshotId: ID!
+    snapshotId: SnapshotID!
     name: String!
     amount: Float!
-    currencyId: ID!
+    currencyId: CurrencyID!
   }
 
   type Query {

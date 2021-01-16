@@ -1,4 +1,5 @@
 import { GraphQLDate } from "graphql-iso-date";
+
 import { ICreateAssetInput } from "@/modules/assets/entities/IAsset";
 import { ICreateCurrencyInput } from "@/modules/assets/entities/ICurrency";
 import { ICreateCurrencyValueInput } from "@/modules/assets/entities/ICurrencyValue";
@@ -11,14 +12,24 @@ import DeleteAssetService from "@/modules/assets/services/DeleteAssetService";
 import DeleteCurrencyService from "@/modules/assets/services/DeleteCurrencyService";
 import DeleteCurrencyValueService from "@/modules/assets/services/DeleteCurrencyValueService";
 import DeleteSnapshotService from "@/modules/assets/services/DeleteSnapshotService";
+import GetAssetService from "@/modules/assets/services/GetAssetService";
+import GetCurrencyService from "@/modules/assets/services/GetCurrencyService";
+import GetCurrencyValueService from "@/modules/assets/services/GetCurrencyValueService";
+import GetSnapshotService from "@/modules/assets/services/GetSnapshotService";
+import ListAssetsOfSnapshotService from "@/modules/assets/services/ListAssetsOfSnapshotService";
+import ListCurrenciesService from "@/modules/assets/services/ListCurrenciesService";
+import ListCurrencyValuesOfSnapshotService from "@/modules/assets/services/ListCurrencyValuesOfSnapshotService";
+import ListSnapshotsService from "@/modules/assets/services/ListSnapshotsService";
 import UpdateAssetService from "@/modules/assets/services/UpdateAssetService";
 import UpdateCurrencyService from "@/modules/assets/services/UpdateCurrencyService";
 import UpdateCurrencyValueService from "@/modules/assets/services/UpdateCurrencyValueService";
 import UpdateSnapshotService from "@/modules/assets/services/UpdateSnapshotService";
+
 import { IAuthenticateUserInput } from "@/modules/users/entities/IAuth";
 import { ICreateUserInput } from "@/modules/users/entities/IUser";
 import AuthenticateUserService from "@/modules/users/services/AuthenticateUserService";
 import CreateUserService from "@/modules/users/services/CreateUserService";
+
 import { IAppProviders } from "@/providers/IAppProviders";
 
 const resolvers = {
@@ -32,6 +43,84 @@ const resolvers = {
     ) => {
       const service = new AuthenticateUserService(context.providers);
       return await service.execute(args.data);
+    },
+    ListSnapshots: async (
+      _parent: any,
+      _args: any,
+      context: { providers: IAppProviders; userId: string },
+      _info: any,
+    ) => {
+      const service = new ListSnapshotsService(context.providers);
+      return await service.execute(context.userId);
+    },
+    GetSnapshot: async (
+      _parent: any,
+      args: { id: string },
+      context: { providers: IAppProviders; userId: string },
+      _info: any,
+    ) => {
+      const service = new GetSnapshotService(context.providers);
+      return await service.execute(context.userId, args.id);
+    },
+    ListCurrencies: async (
+      _parent: any,
+      _args: any,
+      context: { providers: IAppProviders; userId: string },
+      _info: any,
+    ) => {
+      const service = new ListCurrenciesService(context.providers);
+      return await service.execute(context.userId);
+    },
+    GetCurrency: async (
+      _parent: any,
+      args: { id: string },
+      context: { providers: IAppProviders; userId: string },
+      _info: any,
+    ) => {
+      const service = new GetCurrencyService(context.providers);
+      return await service.execute(context.userId, args.id);
+    },
+    ListCurrencyValuesOfSnapshot: async (
+      _parent: any,
+      args: { snapshotId: string },
+      context: { providers: IAppProviders; userId: string },
+      _info: any,
+    ) => {
+      const service = new ListCurrencyValuesOfSnapshotService(
+        context.providers,
+      );
+      return await service.execute(context.userId, args.snapshotId);
+    },
+    GetCurrencyValue: async (
+      _parent: any,
+      args: { snapshotId: string; currencyId: string },
+      context: { providers: IAppProviders; userId: string },
+      _info: any,
+    ) => {
+      const service = new GetCurrencyValueService(context.providers);
+      return await service.execute(
+        context.userId,
+        args.snapshotId,
+        args.currencyId,
+      );
+    },
+    ListAssetsOfSnapshot: async (
+      _parent: any,
+      args: { snapshotId: string },
+      context: { providers: IAppProviders; userId: string },
+      _info: any,
+    ) => {
+      const service = new ListAssetsOfSnapshotService(context.providers);
+      return await service.execute(context.userId, args.snapshotId);
+    },
+    GetAsset: async (
+      _parent: any,
+      args: { id: string },
+      context: { providers: IAppProviders; userId: string },
+      _info: any,
+    ) => {
+      const service = new GetAssetService(context.providers);
+      return await service.execute(context.userId, args.id);
     },
   },
   Mutation: {

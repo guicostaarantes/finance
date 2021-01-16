@@ -39,12 +39,39 @@ const schema = gql`
   }
 
   type Snapshot {
+    id: ID!
     date: Date!
+  }
+
+  type Currency {
+    id: ID!
+    name: String!
+  }
+
+  type CurrencyValue {
+    snapshotId: ID!
+    currencyId: ID!
+    value: Float!
+  }
+
+  type Asset {
+    id: ID!
+    snapshotId: ID!
+    name: String!
+    value: Float!
+    currencyId: ID!
   }
 
   type Query {
     AuthenticateUser(data: AuthenticationData!): Authentication!
     ListSnapshots: [Snapshot!]!
+    GetSnapshot(id: ID!): Snapshot!
+    ListCurrencies: [Currency!]!
+    GetCurrency(id: ID!): Currency!
+    ListCurrencyValuesOfSnapshot(snapshotId: ID!): [CurrencyValue!]!
+    GetCurrencyValue(snapshotId: ID!, currencyId: ID!): CurrencyValue!
+    ListAssetsOfSnapshot(snapshotId: ID!): [Asset!]!
+    GetAsset(id: ID!): Asset!
   }
 
   type Mutation {

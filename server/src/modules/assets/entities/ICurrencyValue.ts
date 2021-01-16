@@ -2,15 +2,15 @@ export interface ICurrencyValue {
   id: string;
   snapshotId: string;
   currencyId: string;
-  value: number;
+  price: number;
 }
 
 export interface ICreateCurrencyValueInput {
-  value: number;
+  price: number;
 }
 
 export interface ICreateCurrencyValueData {
   snapshotId: string;
   currencyId: string;
-  value: number;
+  price: number;
 }

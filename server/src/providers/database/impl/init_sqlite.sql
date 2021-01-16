@@ -36,7 +36,7 @@ CREATE TABLE "currencyValues" (
 	"id"	INTEGER NOT NULL UNIQUE,
 	"snapshotId"	INTEGER NOT NULL,
 	"currencyId"	INTEGER NOT NULL,
-	"value"	REAL NOT NULL,
+	"price"	REAL NOT NULL,
 	PRIMARY KEY("id"),
 	FOREIGN KEY("snapshotId") REFERENCES "snapshots"("id"),
 	FOREIGN KEY("currencyId") REFERENCES "currencies"("id")
@@ -46,7 +46,7 @@ CREATE TABLE "assets" (
 	"id"	INTEGER NOT NULL UNIQUE,
 	"snapshotId"	INTEGER NOT NULL,
 	"name"	TEXT NOT NULL,
-	"value"	REAL NOT NULL,
+	"amount"	REAL NOT NULL,
 	"currencyId"	INTEGER NOT NULL,
 	PRIMARY KEY("id"),
 	FOREIGN KEY("snapshotId") REFERENCES "snapshots"("id"),

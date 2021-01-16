@@ -22,13 +22,13 @@ const schema = gql`
   }
 
   input CurrencyValueData {
-    value: Float!
+    price: Float!
   }
 
   input AssetData {
     snapshotId: ID!
     name: String!
-    value: Float!
+    amount: Float!
     currencyId: ID!
   }
 
@@ -51,14 +51,14 @@ const schema = gql`
   type CurrencyValue {
     snapshotId: ID!
     currencyId: ID!
-    value: Float!
+    price: Float!
   }
 
   type Asset {
     id: ID!
     snapshotId: ID!
     name: String!
-    value: Float!
+    amount: Float!
     currencyId: ID!
   }
 

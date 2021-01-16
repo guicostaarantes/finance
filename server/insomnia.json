@@ -1,0 +1,1067 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2021-01-16T14:04:29.519Z",
+  "__export_source": "insomnia.desktop.app:v2020.5.2",
+  "resources": [
+    {
+      "_id": "req_af0196bec05046179a50186123a10da3",
+      "parentId": "fld_38dafb486177423cba5d94272989091c",
+      "modified": 1610805304685,
+      "created": 1610791798363,
+      "url": "{{ _.base_url }}",
+      "name": "Authenticate User",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"query AuthenticateUser($email: String!, $password: String!) {\\n  AuthenticateUser(data: {email: $email, password: $password}) {\\n    token\\n  }\\n}\\n\",\"variables\":{\"email\":\"john.doe@mail.com\",\"password\":\"123456\"},\"operationName\":\"AuthenticateUser\"}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_e30b938d255e4d75b86f4853bc15fa99"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1610792418676.5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_38dafb486177423cba5d94272989091c",
+      "parentId": "fld_c2012c0eaab5488d8b9123b6e56dc897",
+      "modified": 1610793302396,
+      "created": 1610793283221,
+      "name": "Query",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1610793283321,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_c2012c0eaab5488d8b9123b6e56dc897",
+      "parentId": "wrk_ea94ffe910a642189e0ed8a8264c40b6",
+      "modified": 1610793171249,
+      "created": 1610793171249,
+      "name": "User",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1610793171249,
+      "_type": "request_group"
+    },
+    {
+      "_id": "wrk_ea94ffe910a642189e0ed8a8264c40b6",
+      "parentId": null,
+      "modified": 1586799193091,
+      "created": 1586799193091,
+      "name": "Finance",
+      "description": "",
+      "scope": null,
+      "_type": "workspace"
+    },
+    {
+      "_id": "req_3e8aa40bebc64cb1a23863bad8ba805e",
+      "parentId": "fld_0c28b21caab143a98996644cc5a3a764",
+      "modified": 1610805310905,
+      "created": 1610791666003,
+      "url": "{{ _.base_url }}",
+      "name": "Create User",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"mutation CreateUser($email: String!, $password: String!) {\\n  CreateUser(data: {email: $email, password: $password})\\n}\\n\",\"variables\":{\"email\":\"john.doe@mail.com\",\"password\":\"123456\"},\"operationName\":\"CreateUser\"}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_e30b938d255e4d75b86f4853bc15fa99"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1610792418726.5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_0c28b21caab143a98996644cc5a3a764",
+      "parentId": "fld_c2012c0eaab5488d8b9123b6e56dc897",
+      "modified": 1610793300905,
+      "created": 1610793291549,
+      "name": "Mutation",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1610793283271,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_202af4bc3f884eb8bfe0f9d951629fce",
+      "parentId": "fld_bdce4a08c5644d8f913c360a16b22d1f",
+      "modified": 1610805313575,
+      "created": 1610794652577,
+      "url": "{{ _.base_url }}",
+      "name": "List Snapshots",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"query ListSnapshots {\\n  ListSnapshots {\\n    id\\n    date\\n  }\\n}\",\"operationName\":\"ListSnapshots\"}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_a0bfe6c0548f44f9b53d29ce73a31d63"
+        },
+        {
+          "name": "Authorization",
+          "value": "{% response 'body', 'req_af0196bec05046179a50186123a10da3', 'b64::JC5kYXRhLkF1dGhlbnRpY2F0ZVVzZXIudG9rZW4=::46b', 'never', 60 %}",
+          "description": "",
+          "id": "pair_ee9a8110bf2347eebbe8195b3f7994e0"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1610794652577,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_bdce4a08c5644d8f913c360a16b22d1f",
+      "parentId": "fld_3be55fab826a4d51a859027575a845f2",
+      "modified": 1610793318884,
+      "created": 1610793318884,
+      "name": "Query",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1610793318884,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_3be55fab826a4d51a859027575a845f2",
+      "parentId": "wrk_ea94ffe910a642189e0ed8a8264c40b6",
+      "modified": 1610793197888,
+      "created": 1610793193928,
+      "name": "Snapshot",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1607650758622.75,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_49963e18c7364d10af767ef2810b355f",
+      "parentId": "fld_bdce4a08c5644d8f913c360a16b22d1f",
+      "modified": 1610805316160,
+      "created": 1610797922429,
+      "url": "{{ _.base_url }}",
+      "name": "Get Snapshot",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"query GetSnapshot($id: ID!) {\\n  GetSnapshot(id: $id) {\\n    id\\n    date\\n  }\\n}\",\"variables\":{\"id\":\"1\"},\"operationName\":\"GetSnapshot\"}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_a0bfe6c0548f44f9b53d29ce73a31d63"
+        },
+        {
+          "name": "Authorization",
+          "value": "{% response 'body', 'req_af0196bec05046179a50186123a10da3', 'b64::JC5kYXRhLkF1dGhlbnRpY2F0ZVVzZXIudG9rZW4=::46b', 'never', 60 %}",
+          "description": "",
+          "id": "pair_ee9a8110bf2347eebbe8195b3f7994e0"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1610793535651.75,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_9873163a7b9540a3b6282b3f85c004de",
+      "parentId": "fld_a076bb7953ba49fe9da79716628b76f7",
+      "modified": 1610805318308,
+      "created": 1610791863799,
+      "url": "{{ _.base_url }}",
+      "name": "Create Snapshot",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"mutation CreateSnapshot($date: Date!) {\\n  CreateSnapshot(data: {date: $date})\\n}\\n\",\"variables\":{\"date\":\"2020-01-16\"},\"operationName\":\"CreateSnapshot\"}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_e30b938d255e4d75b86f4853bc15fa99"
+        },
+        {
+          "name": "Authorization",
+          "value": "{% response 'body', 'req_af0196bec05046179a50186123a10da3', 'b64::JC5kYXRhLkF1dGhlbnRpY2F0ZVVzZXIudG9rZW4=::46b', 'never', 60 %}",
+          "description": "",
+          "id": "pair_56eecd2d3267469a9b765a757b938181"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1604508346121.5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_a076bb7953ba49fe9da79716628b76f7",
+      "parentId": "fld_3be55fab826a4d51a859027575a845f2",
+      "modified": 1610793315020,
+      "created": 1610793315020,
+      "name": "Mutation",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1610793315020,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_1109c08552204cffaf5c44f479fe52b9",
+      "parentId": "fld_a076bb7953ba49fe9da79716628b76f7",
+      "modified": 1610805320116,
+      "created": 1610792074897,
+      "url": "{{ _.base_url }}",
+      "name": "Update Snapshot",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"mutation UpdateSnapshot($id: ID!, $date: Date!) {\\n  UpdateSnapshot(id: $id, data: {date: $date})\\n}\\n\",\"variables\":{\"id\":\"1\",\"date\":\"2020-01-16\"},\"operationName\":\"UpdateSnapshot\"}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_e30b938d255e4d75b86f4853bc15fa99"
+        },
+        {
+          "name": "Authorization",
+          "value": "{% response 'body', 'req_af0196bec05046179a50186123a10da3', 'b64::JC5kYXRhLkF1dGhlbnRpY2F0ZVVzZXIudG9rZW4=::46b', 'never', 60 %}",
+          "description": "",
+          "id": "pair_56eecd2d3267469a9b765a757b938181"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1604508346071.5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_3c9457ec17fa4eebb3472e50bc6fcdc5",
+      "parentId": "fld_a076bb7953ba49fe9da79716628b76f7",
+      "modified": 1610803819116,
+      "created": 1610793078803,
+      "url": "{{ _.base_url }}",
+      "name": "Delete Snapshot",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"mutation DeleteSnapshot($id: ID!) {\\n  DeleteSnapshot(id: $id)\\n}\\n\",\"variables\":{\"id\":\"3\"},\"operationName\":\"DeleteSnapshot\"}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_e30b938d255e4d75b86f4853bc15fa99"
+        },
+        {
+          "name": "Authorization",
+          "value": "{% response 'body', 'req_af0196bec05046179a50186123a10da3', 'b64::JC5kYXRhLkF1dGhlbnRpY2F0ZVVzZXIudG9rZW4=::46b', 'never', 60 %}",
+          "description": "",
+          "id": "pair_56eecd2d3267469a9b765a757b938181"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1604508346046.5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_9207e4eeada34bc6bd124f8409df5fdf",
+      "parentId": "fld_103dd6fba74741038e39161665733f99",
+      "modified": 1610804787427,
+      "created": 1610798080977,
+      "url": "{{ _.base_url }}",
+      "name": "List Currencies",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"query ListCurrencies {\\n  ListCurrencies {\\n    id\\n    name\\n  }\\n}\",\"operationName\":\"ListCurrencies\"}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_a0bfe6c0548f44f9b53d29ce73a31d63"
+        },
+        {
+          "name": "Authorization",
+          "value": "{% response 'body', 'req_af0196bec05046179a50186123a10da3', 'b64::JC5kYXRhLkF1dGhlbnRpY2F0ZVVzZXIudG9rZW4=::46b', 'never', 60 %}",
+          "description": "",
+          "id": "pair_ee9a8110bf2347eebbe8195b3f7994e0"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1610793317052,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_103dd6fba74741038e39161665733f99",
+      "parentId": "fld_dc5a65758e7743858bb1d0c6c399d771",
+      "modified": 1610793341005,
+      "created": 1610793341005,
+      "name": "Query",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1610793318884,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_dc5a65758e7743858bb1d0c6c399d771",
+      "parentId": "wrk_ea94ffe910a642189e0ed8a8264c40b6",
+      "modified": 1610793340963,
+      "created": 1610793340963,
+      "name": "Currency",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1599029884421.875,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_740572e7cb58439f88cfc04d08b47f6e",
+      "parentId": "fld_103dd6fba74741038e39161665733f99",
+      "modified": 1610804782325,
+      "created": 1610798097408,
+      "url": "{{ _.base_url }}",
+      "name": "Get Currency",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"query GetCurrency($id: ID!) {\\n  GetCurrency(id: $id) {\\n    id\\n    name\\n  }\\n}\",\"variables\":{\"id\":\"1\"},\"operationName\":\"GetCurrency\"}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_a0bfe6c0548f44f9b53d29ce73a31d63"
+        },
+        {
+          "name": "Authorization",
+          "value": "{% response 'body', 'req_af0196bec05046179a50186123a10da3', 'b64::JC5kYXRhLkF1dGhlbnRpY2F0ZVVzZXIudG9rZW4=::46b', 'never', 60 %}",
+          "description": "",
+          "id": "pair_ee9a8110bf2347eebbe8195b3f7994e0"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1610793317002,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_9b9f1435f8974d279ea00a05428de2f4",
+      "parentId": "fld_959dd171a6f748a7a3f7ff8012fea785",
+      "modified": 1610804771182,
+      "created": 1610793340967,
+      "url": "{{ _.base_url }}",
+      "name": "Create Currency",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"mutation CreateCurrency($name: String!) {\\n  CreateCurrency(data: {name: $name})\\n}\\n\",\"variables\":{\"name\":\"BRL\"},\"operationName\":\"CreateCurrency\"}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_e30b938d255e4d75b86f4853bc15fa99"
+        },
+        {
+          "name": "Authorization",
+          "value": "{% response 'body', 'req_af0196bec05046179a50186123a10da3', 'b64::JC5kYXRhLkF1dGhlbnRpY2F0ZVVzZXIudG9rZW4=::46b', 'never', 60 %}",
+          "description": "",
+          "id": "pair_56eecd2d3267469a9b765a757b938181"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1604508346121.5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_959dd171a6f748a7a3f7ff8012fea785",
+      "parentId": "fld_dc5a65758e7743858bb1d0c6c399d771",
+      "modified": 1610793340965,
+      "created": 1610793340965,
+      "name": "Mutation",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1610793315020,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_eaa74a39cbc84070bc6fde59840d8e5b",
+      "parentId": "fld_959dd171a6f748a7a3f7ff8012fea785",
+      "modified": 1610804775947,
+      "created": 1610793340976,
+      "url": "{{ _.base_url }}",
+      "name": "Update Currency",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"mutation UpdateCurrency($id: ID!, $name: String!) {\\n  UpdateCurrency(id: $id, data: {name: $name})\\n}\",\"variables\":{\"id\":\"1\",\"name\":\"USD\"},\"operationName\":\"UpdateCurrency\"}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_e30b938d255e4d75b86f4853bc15fa99"
+        },
+        {
+          "name": "Authorization",
+          "value": "{% response 'body', 'req_af0196bec05046179a50186123a10da3', 'b64::JC5kYXRhLkF1dGhlbnRpY2F0ZVVzZXIudG9rZW4=::46b', 'never', 60 %}",
+          "description": "",
+          "id": "pair_56eecd2d3267469a9b765a757b938181"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1604508346071.5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_f9b482bba9584b238002a9cb17f870a0",
+      "parentId": "fld_959dd171a6f748a7a3f7ff8012fea785",
+      "modified": 1610794732144,
+      "created": 1610793340988,
+      "url": "{{ _.base_url }}",
+      "name": "Delete Currency",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"mutation DeleteCurrency($id: ID!) {\\n  DeleteCurrency(id: $id)\\n}\\n\",\"variables\":{\"id\":\"1\"},\"operationName\":\"DeleteCurrency\"}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_e30b938d255e4d75b86f4853bc15fa99"
+        },
+        {
+          "name": "Authorization",
+          "value": "{% response 'body', 'req_af0196bec05046179a50186123a10da3', 'b64::JC5kYXRhLkF1dGhlbnRpY2F0ZVVzZXIudG9rZW4=::46b', 'never', 60 %}",
+          "description": "",
+          "id": "pair_56eecd2d3267469a9b765a757b938181"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1604508346021.5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_fcd362f7e3084f429840c0f4b42ed5ff",
+      "parentId": "fld_dfbd0f8f5dad41d5ae27afa3e70ca91b",
+      "modified": 1610804806044,
+      "created": 1610798390996,
+      "url": "{{ _.base_url }}",
+      "name": "List Currency Values Of Snapshot",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"query ListCurrencyValuesOfSnapshot($snapshotId: ID!) {\\n  ListCurrencyValuesOfSnapshot(snapshotId: $snapshotId) {\\n    price\\n    currencyId {\\n      content {\\n        name\\n      }\\n    }\\n  }\\n}\\n\",\"variables\":{\"snapshotId\":\"1\"},\"operationName\":\"ListCurrencyValuesOfSnapshot\"}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_e30b938d255e4d75b86f4853bc15fa99"
+        },
+        {
+          "name": "Authorization",
+          "value": "{% response 'body', 'req_af0196bec05046179a50186123a10da3', 'b64::JC5kYXRhLkF1dGhlbnRpY2F0ZVVzZXIudG9rZW4=::46b', 'never', 60 %}",
+          "description": "",
+          "id": "pair_56eecd2d3267469a9b765a757b938181"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1604508346115.25,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_dfbd0f8f5dad41d5ae27afa3e70ca91b",
+      "parentId": "fld_0168440e136345d4bf0c46419dc84a82",
+      "modified": 1610793822226,
+      "created": 1610793822226,
+      "name": "Query",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1610793318884,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_0168440e136345d4bf0c46419dc84a82",
+      "parentId": "wrk_ea94ffe910a642189e0ed8a8264c40b6",
+      "modified": 1610793822160,
+      "created": 1610793822160,
+      "name": "Currency Value",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1594719447321.4375,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_fc276cce66eb43cab7429877b997e5e2",
+      "parentId": "fld_dfbd0f8f5dad41d5ae27afa3e70ca91b",
+      "modified": 1610804808833,
+      "created": 1610798610372,
+      "url": "{{ _.base_url }}",
+      "name": "Get Currency Value",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"query GetCurrencyValue($snapshotId: ID!, $currencyId: ID!) {\\n  GetCurrencyValue(snapshotId: $snapshotId, currencyId: $currencyId) {\\n    snapshotId {\\n      id\\n    }\\n    currencyId {\\n      id\\n    }\\n    price\\n  }\\n}\\n\",\"variables\":{\"snapshotId\":\"1\",\"currencyId\":\"1\"},\"operationName\":\"GetCurrencyValue\"}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_e30b938d255e4d75b86f4853bc15fa99"
+        },
+        {
+          "name": "Authorization",
+          "value": "{% response 'body', 'req_af0196bec05046179a50186123a10da3', 'b64::JC5kYXRhLkF1dGhlbnRpY2F0ZVVzZXIudG9rZW4=::46b', 'never', 60 %}",
+          "description": "",
+          "id": "pair_56eecd2d3267469a9b765a757b938181"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1604508346112.125,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_7df2091c5d2549df89b9e1b2fbca1153",
+      "parentId": "fld_1fc4295a3ae140db9e8599bb9bc1d1c3",
+      "modified": 1610804796618,
+      "created": 1610793822170,
+      "url": "{{ _.base_url }}",
+      "name": "Create Currency Value",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"mutation CreateCurrencyValue($snapshotId: ID!, $currencyId: ID!, $price: Float!) {\\n  CreateCurrencyValue(snapshotId: $snapshotId, currencyId: $currencyId, data: {price: $price})\\n}\\n\",\"variables\":{\"snapshotId\":\"1\",\"currencyId\":\"1\",\"price\":2.5},\"operationName\":\"CreateCurrencyValue\"}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_e30b938d255e4d75b86f4853bc15fa99"
+        },
+        {
+          "name": "Authorization",
+          "value": "{% response 'body', 'req_af0196bec05046179a50186123a10da3', 'b64::JC5kYXRhLkF1dGhlbnRpY2F0ZVVzZXIudG9rZW4=::46b', 'never', 60 %}",
+          "description": "",
+          "id": "pair_56eecd2d3267469a9b765a757b938181"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1604508346121.5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_1fc4295a3ae140db9e8599bb9bc1d1c3",
+      "parentId": "fld_0168440e136345d4bf0c46419dc84a82",
+      "modified": 1610793822165,
+      "created": 1610793822165,
+      "name": "Mutation",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1610793315020,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_a97c30df69a449adb9f236f3b3bce933",
+      "parentId": "fld_1fc4295a3ae140db9e8599bb9bc1d1c3",
+      "modified": 1610804803608,
+      "created": 1610794105821,
+      "url": "{{ _.base_url }}",
+      "name": "Update Currency Value",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"mutation UpdateCurrencyValue($snapshotId: ID!, $currencyId: ID!, $price: Float!) {\\n  UpdateCurrencyValue(snapshotId: $snapshotId, currencyId: $currencyId, data: {price: $price})\\n}\\n\",\"variables\":{\"snapshotId\":\"1\",\"currencyId\":\"1\",\"price\":2.6},\"operationName\":\"UpdateCurrencyValue\"}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_e30b938d255e4d75b86f4853bc15fa99"
+        },
+        {
+          "name": "Authorization",
+          "value": "{% response 'body', 'req_af0196bec05046179a50186123a10da3', 'b64::JC5kYXRhLkF1dGhlbnRpY2F0ZVVzZXIudG9rZW4=::46b', 'never', 60 %}",
+          "description": "",
+          "id": "pair_56eecd2d3267469a9b765a757b938181"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1604508346096.5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_0f1ed9c560d8484596198a650c40274b",
+      "parentId": "fld_1fc4295a3ae140db9e8599bb9bc1d1c3",
+      "modified": 1610799438350,
+      "created": 1610794115923,
+      "url": "{{ _.base_url }}",
+      "name": "Delete Currency Value",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"mutation DeleteCurrencyValue($snapshotId: ID!, $currencyId: ID!) {\\n  DeleteCurrencyValue(snapshotId: $snapshotId, currencyId: $currencyId)\\n}\\n\",\"variables\":{\"snapshotId\":\"1\",\"currencyId\":\"1\"},\"operationName\":\"DeleteCurrencyValue\"}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_e30b938d255e4d75b86f4853bc15fa99"
+        },
+        {
+          "name": "Authorization",
+          "value": "{% response 'body', 'req_af0196bec05046179a50186123a10da3', 'b64::JC5kYXRhLkF1dGhlbnRpY2F0ZVVzZXIudG9rZW4=::46b', 'never', 60 %}",
+          "description": "",
+          "id": "pair_56eecd2d3267469a9b765a757b938181"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1604508346084,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_5438d2093f8943338e2bd7146506bad1",
+      "parentId": "fld_6349a03a2c50461baab108257cf00f1e",
+      "modified": 1610805356858,
+      "created": 1610798773335,
+      "url": "{{ _.base_url }}",
+      "name": "List Assets Of Snapshot",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"query ListAssetsOfSnapshot($snapshotId: ID!) {\\n  ListAssetsOfSnapshot(snapshotId: $snapshotId) {\\n    id\\n    name\\n    amount\\n    currencyId {\\n      content {\\n        name\\n      }\\n    }\\n  }\\n}\\n\",\"variables\":{\"snapshotId\":\"1\"},\"operationName\":\"ListAssetsOfSnapshot\"}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_e30b938d255e4d75b86f4853bc15fa99"
+        },
+        {
+          "name": "Authorization",
+          "value": "{% response 'body', 'req_af0196bec05046179a50186123a10da3', 'b64::JC5kYXRhLkF1dGhlbnRpY2F0ZVVzZXIudG9rZW4=::46b', 'never', 60 %}",
+          "description": "",
+          "id": "pair_56eecd2d3267469a9b765a757b938181"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1610793317968,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_6349a03a2c50461baab108257cf00f1e",
+      "parentId": "fld_e95ebec0898048f2bc12be1775cb0144",
+      "modified": 1610794277760,
+      "created": 1610794277760,
+      "name": "Query",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1610793318884,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_e95ebec0898048f2bc12be1775cb0144",
+      "parentId": "wrk_ea94ffe910a642189e0ed8a8264c40b6",
+      "modified": 1610794280761,
+      "created": 1610794277703,
+      "name": "Asset",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1594719447271.4375,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_8e8008bc5106414aa6c4d4ce938a982d",
+      "parentId": "fld_6349a03a2c50461baab108257cf00f1e",
+      "modified": 1610805355550,
+      "created": 1610798785880,
+      "url": "{{ _.base_url }}",
+      "name": "Get Asset",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"query GetAsset($id: ID!) {\\n  GetAsset(id: $id) {\\n    name\\n    amount\\n    currencyId {\\n      content {\\n        name\\n      }\\n    }\\n  }\\n}\\n\",\"variables\":{\"id\":\"1\"},\"operationName\":\"GetAsset\"}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_e30b938d255e4d75b86f4853bc15fa99"
+        },
+        {
+          "name": "Authorization",
+          "value": "{% response 'body', 'req_af0196bec05046179a50186123a10da3', 'b64::JC5kYXRhLkF1dGhlbnRpY2F0ZVVzZXIudG9rZW4=::46b', 'never', 60 %}",
+          "description": "",
+          "id": "pair_56eecd2d3267469a9b765a757b938181"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1610793317918,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_9855eace54eb4db9845d10786766782f",
+      "parentId": "fld_63854a68efdc47df88625b90a0280f37",
+      "modified": 1610805335213,
+      "created": 1610794277712,
+      "url": "{{ _.base_url }}",
+      "name": "Create Asset",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"mutation CreateAsset($snapshotId: ID!, $currencyId: ID!, $name: String!, $amount: Float!) {\\n  CreateAsset(data: {snapshotId: $snapshotId, currencyId: $currencyId, name: $name, amount: $amount})\\n}\\n\",\"variables\":{\"snapshotId\":\"1\",\"currencyId\":\"1\",\"name\":\"Bank account\",\"amount\":2000},\"operationName\":\"CreateAsset\"}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_e30b938d255e4d75b86f4853bc15fa99"
+        },
+        {
+          "name": "Authorization",
+          "value": "{% response 'body', 'req_af0196bec05046179a50186123a10da3', 'b64::JC5kYXRhLkF1dGhlbnRpY2F0ZVVzZXIudG9rZW4=::46b', 'never', 60 %}",
+          "description": "",
+          "id": "pair_56eecd2d3267469a9b765a757b938181"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1604508346121.5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_63854a68efdc47df88625b90a0280f37",
+      "parentId": "fld_e95ebec0898048f2bc12be1775cb0144",
+      "modified": 1610794277707,
+      "created": 1610794277707,
+      "name": "Mutation",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1610793315020,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_6b51b77f529147cc8ec3f262db34702e",
+      "parentId": "fld_63854a68efdc47df88625b90a0280f37",
+      "modified": 1610805351532,
+      "created": 1610794508242,
+      "url": "{{ _.base_url }}",
+      "name": "Update Asset",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"mutation UpdateAsset($id: ID!, $snapshotId: ID!, $currencyId: ID!, $name: String!, $amount: Float!) {\\n  UpdateAsset(id: $id, data: {snapshotId: $snapshotId, currencyId: $currencyId, name: $name, amount: $amount})\\n}\\n\",\"variables\":{\"id\":\"1\",\"snapshotId\":\"1\",\"currencyId\":\"1\",\"name\":\"Bank account\",\"amount\":3000},\"operationName\":\"UpdateAsset\"}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_e30b938d255e4d75b86f4853bc15fa99"
+        },
+        {
+          "name": "Authorization",
+          "value": "{% response 'body', 'req_af0196bec05046179a50186123a10da3', 'b64::JC5kYXRhLkF1dGhlbnRpY2F0ZVVzZXIudG9rZW4=::46b', 'never', 60 %}",
+          "description": "",
+          "id": "pair_56eecd2d3267469a9b765a757b938181"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1604508346109,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_dfeabb88f25f4aebb70f8ca405c74520",
+      "parentId": "fld_63854a68efdc47df88625b90a0280f37",
+      "modified": 1610799668249,
+      "created": 1610794515170,
+      "url": "{{ _.base_url }}",
+      "name": "Delete Asset",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"mutation DeleteAsset($id: ID!) {\\n  DeleteAsset(id: $id)\\n}\\n\",\"variables\":{\"id\":\"1\"},\"operationName\":\"DeleteAsset\"}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_e30b938d255e4d75b86f4853bc15fa99"
+        },
+        {
+          "name": "Authorization",
+          "value": "{% response 'body', 'req_af0196bec05046179a50186123a10da3', 'b64::JC5kYXRhLkF1dGhlbnRpY2F0ZVVzZXIudG9rZW4=::46b', 'never', 60 %}",
+          "description": "",
+          "id": "pair_56eecd2d3267469a9b765a757b938181"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1604508346102.75,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "env_0c84d839dbf1661ea7f93457b5ad8aa5bde00ed4",
+      "parentId": "wrk_ea94ffe910a642189e0ed8a8264c40b6",
+      "modified": 1586799193160,
+      "created": 1586799193160,
+      "name": "Base Environment",
+      "data": {},
+      "dataPropertyOrder": null,
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1586799193160,
+      "_type": "environment"
+    },
+    {
+      "_id": "jar_0c84d839dbf1661ea7f93457b5ad8aa5bde00ed4",
+      "parentId": "wrk_ea94ffe910a642189e0ed8a8264c40b6",
+      "modified": 1586799193162,
+      "created": 1586799193162,
+      "name": "Default Jar",
+      "cookies": [],
+      "_type": "cookie_jar"
+    },
+    {
+      "_id": "spc_5f67d5c76b7c4e84b1ad84d3ce6c37a0",
+      "parentId": "wrk_ea94ffe910a642189e0ed8a8264c40b6",
+      "modified": 1592437231081,
+      "created": 1592437231081,
+      "fileName": "Finance",
+      "contents": "",
+      "contentType": "yaml",
+      "_type": "api_spec"
+    },
+    {
+      "_id": "env_bb93b30511c4417bbbd959eecb3d6b18",
+      "parentId": "env_0c84d839dbf1661ea7f93457b5ad8aa5bde00ed4",
+      "modified": 1610794680560,
+      "created": 1586799204398,
+      "name": "Development",
+      "data": { "base_url": "http://localhost:4002" },
+      "dataPropertyOrder": { "&": ["base_url"] },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1586799204398,
+      "_type": "environment"
+    }
+  ]
+}

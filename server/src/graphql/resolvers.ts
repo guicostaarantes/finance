@@ -1,3 +1,4 @@
+import { GraphQLDate } from "graphql-iso-date";
 import { ICreateAssetInput } from "@/modules/assets/entities/IAsset";
 import { ICreateCurrencyInput } from "@/modules/assets/entities/ICurrency";
 import { ICreateCurrencyValueInput } from "@/modules/assets/entities/ICurrencyValue";
@@ -21,6 +22,7 @@ import CreateUserService from "@/modules/users/services/CreateUserService";
 import { IAppProviders } from "@/providers/IAppProviders";
 
 const resolvers = {
+  Date: GraphQLDate,
   Query: {
     AuthenticateUser: async (
       _parent: any,

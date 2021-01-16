@@ -1,6 +1,8 @@
 import { gql } from "apollo-server";
 
 const schema = gql`
+  scalar Date
+
   input UserData {
     email: String!
     password: String!
@@ -12,7 +14,7 @@ const schema = gql`
   }
 
   input SnapshotData {
-    date: Int!
+    date: Date!
   }
 
   input CurrencyData {
@@ -30,14 +32,19 @@ const schema = gql`
     currencyId: ID!
   }
 
-  type AuthenticateUser {
+  type Authentication {
     token: ID!
     createdAt: Int!
     expiresAt: Int!
   }
 
+  type Snapshot {
+    date: Date!
+  }
+
   type Query {
-    AuthenticateUser(data: AuthenticationData!): AuthenticateUser!
+    AuthenticateUser(data: AuthenticationData!): Authentication!
+    ListSnapshots: [Snapshot!]!
   }
 
   type Mutation {

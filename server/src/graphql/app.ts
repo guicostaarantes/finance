@@ -14,7 +14,6 @@ class App {
     this.app = new ApolloServer({
       typeDefs,
       resolvers,
-      introspection: true,
       context: async ({ req }) => {
         let userId: string;
 

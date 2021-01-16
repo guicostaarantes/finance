@@ -1,14 +1,14 @@
 export interface ISnapshot {
   id: string;
   userId: string;
-  date: number;
+  date: Date;
 }
 
 export interface ICreateSnapshotInput {
-  date: number;
+  date: Date;
 }
 
 export interface ICreateSnapshotData {
   userId: string;
-  date: number;
+  date: string;
 }

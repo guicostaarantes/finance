@@ -16,14 +16,17 @@ class CreateSnapshotService {
   }
 
   async execute(userId: string, input: ICreateSnapshotInput) {
-    console.log(userId);
     if (!userId) {
       this.errorProvider.throw("Not authorized", "401");
     }
 
     const exists = this.databaseProvider.findOne("snapshots", [
       { field: "userId", compare: "=", value: userId },
-      { field: "date", compare: "=", value: input.date },
+      {
+        field: "date",
+        compare: "=",
+        value: input.date.toISOString().substring(0, 10),
+      },
     ]);
 
     if (exists) {
@@ -32,6 +35,7 @@ class CreateSnapshotService {
 
     this.databaseProvider.insertOne<ICreateSnapshotData>("snapshots", {
       ...input,
+      date: input.date.toISOString().substring(0, 10),
       userId,
     });
   }

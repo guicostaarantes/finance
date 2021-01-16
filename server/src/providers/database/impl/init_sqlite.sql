@@ -19,7 +19,7 @@ CREATE TABLE "sessions" (
 CREATE TABLE "snapshots" (
 	"id"	INTEGER NOT NULL UNIQUE,
 	"userId"	INTEGER NOT NULL,
-	"date"	INTEGER NOT NULL,
+	"date"	TEXT NOT NULL,
 	PRIMARY KEY("id")
 	FOREIGN KEY("userId") REFERENCES "users"("id")
 );

@@ -32,7 +32,11 @@ class UpdateSnapshotService {
 
     const exists = this.databaseProvider.findOne<ISnapshot>("snapshots", [
       { field: "userId", compare: "=", value: userId },
-      { field: "date", compare: "=", value: input.date },
+      {
+        field: "date",
+        compare: "=",
+        value: input.date.toISOString().substring(0, 10),
+      },
     ]);
 
     if (exists && exists.id != id) {
@@ -44,6 +48,7 @@ class UpdateSnapshotService {
       [{ field: "id", compare: "=", value: id }],
       {
         ...input,
+        date: input.date.toISOString().substring(0, 10),
         userId,
       },
     );

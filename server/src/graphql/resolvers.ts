@@ -1,61 +1,87 @@
-import { GraphQLDate } from "graphql-iso-date";
+import { GraphQLDate } from 'graphql-iso-date';
 
-import { ICreateAssetInput } from "@/modules/assets/entities/IAsset";
-import { ICreateCurrencyInput } from "@/modules/assets/entities/ICurrency";
-import { ICreateCurrencyValueInput } from "@/modules/assets/entities/ICurrencyValue";
-import { ICreateSnapshotInput } from "@/modules/assets/entities/ISnapshot";
-import CreateAssetService from "@/modules/assets/services/CreateAssetService";
-import CreateCurrencyService from "@/modules/assets/services/CreateCurrencyService";
-import CreateCurrencyValueService from "@/modules/assets/services/CreateCurrencyValueService";
-import CreateSnapshotService from "@/modules/assets/services/CreateSnapshotService";
-import DeleteAssetService from "@/modules/assets/services/DeleteAssetService";
-import DeleteCurrencyService from "@/modules/assets/services/DeleteCurrencyService";
-import DeleteCurrencyValueService from "@/modules/assets/services/DeleteCurrencyValueService";
-import DeleteSnapshotService from "@/modules/assets/services/DeleteSnapshotService";
-import GetAssetService from "@/modules/assets/services/GetAssetService";
-import GetCurrencyService from "@/modules/assets/services/GetCurrencyService";
-import GetCurrencyValueService from "@/modules/assets/services/GetCurrencyValueService";
-import GetSnapshotService from "@/modules/assets/services/GetSnapshotService";
-import ListAssetsOfSnapshotService from "@/modules/assets/services/ListAssetsOfSnapshotService";
-import ListCurrenciesService from "@/modules/assets/services/ListCurrenciesService";
-import ListCurrencyValuesOfSnapshotService from "@/modules/assets/services/ListCurrencyValuesOfSnapshotService";
-import ListSnapshotsService from "@/modules/assets/services/ListSnapshotsService";
-import UpdateAssetService from "@/modules/assets/services/UpdateAssetService";
-import UpdateCurrencyService from "@/modules/assets/services/UpdateCurrencyService";
-import UpdateCurrencyValueService from "@/modules/assets/services/UpdateCurrencyValueService";
-import UpdateSnapshotService from "@/modules/assets/services/UpdateSnapshotService";
-
-import { IAuthenticateUserInput } from "@/modules/users/entities/IAuth";
-import { ICreateUserInput } from "@/modules/users/entities/IUser";
-import AuthenticateUserService from "@/modules/users/services/AuthenticateUserService";
-import CreateUserService from "@/modules/users/services/CreateUserService";
-
-import { IAppProviders } from "@/providers/IAppProviders";
+import { ICreateAssetInput } from '@/modules/assets/entities/IAsset';
+import { ICreateCurrencyInput } from '@/modules/assets/entities/ICurrency';
+import { ICreateCurrencyValueInput } from '@/modules/assets/entities/ICurrencyValue';
+import { ICreateSnapshotInput } from '@/modules/assets/entities/ISnapshot';
+import CreateAssetService from '@/modules/assets/services/CreateAssetService';
+import CreateCurrencyService from '@/modules/assets/services/CreateCurrencyService';
+import CreateCurrencyValueService from '@/modules/assets/services/CreateCurrencyValueService';
+import CreateSnapshotService from '@/modules/assets/services/CreateSnapshotService';
+import DeleteAssetService from '@/modules/assets/services/DeleteAssetService';
+import DeleteCurrencyService from '@/modules/assets/services/DeleteCurrencyService';
+import DeleteCurrencyValueService from '@/modules/assets/services/DeleteCurrencyValueService';
+import DeleteSnapshotService from '@/modules/assets/services/DeleteSnapshotService';
+import GetAssetService from '@/modules/assets/services/GetAssetService';
+import GetCurrencyService from '@/modules/assets/services/GetCurrencyService';
+import GetCurrencyValueService from '@/modules/assets/services/GetCurrencyValueService';
+import GetSnapshotService from '@/modules/assets/services/GetSnapshotService';
+import GetSnapshotTotalAmountService from '@/modules/assets/services/GetSnapshotTotalAmountService';
+import ListAssetsOfSnapshotService from '@/modules/assets/services/ListAssetsOfSnapshotService';
+import ListCurrenciesService from '@/modules/assets/services/ListCurrenciesService';
+import ListCurrencyValuesOfSnapshotService from '@/modules/assets/services/ListCurrencyValuesOfSnapshotService';
+import ListSnapshotsService from '@/modules/assets/services/ListSnapshotsService';
+import UpdateAssetService from '@/modules/assets/services/UpdateAssetService';
+import UpdateCurrencyService from '@/modules/assets/services/UpdateCurrencyService';
+import UpdateCurrencyValueService from '@/modules/assets/services/UpdateCurrencyValueService';
+import UpdateSnapshotService from '@/modules/assets/services/UpdateSnapshotService';
+import { IAuthenticateUserInput } from '@/modules/users/entities/IAuth';
+import { ICreateUserInput } from '@/modules/users/entities/IUser';
+import AuthenticateUserService from '@/modules/users/services/AuthenticateUserService';
+import CreateUserService from '@/modules/users/services/CreateUserService';
+import { IAppProviders } from '@/providers/IAppProviders';
 
 const resolvers = {
   Date: GraphQLDate,
-  SnapshotID: {
-    id: (parent: string) => parent,
-    content: async (
-      parent: string,
+  CurrencyValue: {
+    snapshot: async (
+      parent: { snapshotId: string },
       _args: any,
       context: { providers: IAppProviders; userId: string },
       _info: any,
     ) => {
       const service = new GetSnapshotService(context.providers);
-      return await service.execute(context.userId, parent);
+      return await service.execute(context.userId, parent.snapshotId);
     },
-  },
-  CurrencyID: {
-    id: (parent: string) => parent,
-    content: async (
-      parent: string,
+    currency: async (
+      parent: { currencyId: string },
       _args: any,
       context: { providers: IAppProviders; userId: string },
       _info: any,
     ) => {
       const service = new GetCurrencyService(context.providers);
-      return await service.execute(context.userId, parent);
+      return await service.execute(context.userId, parent.currencyId);
+    },
+  },
+  Asset: {
+    snapshot: async (
+      parent: { snapshotId: string },
+      _args: any,
+      context: { providers: IAppProviders; userId: string },
+      _info: any,
+    ) => {
+      const service = new GetSnapshotService(context.providers);
+      return await service.execute(context.userId, parent.snapshotId);
+    },
+    currency: async (
+      parent: { currencyId: string },
+      _args: any,
+      context: { providers: IAppProviders; userId: string },
+      _info: any,
+    ) => {
+      const service = new GetCurrencyService(context.providers);
+      return await service.execute(context.userId, parent.currencyId);
+    },
+  },
+  Snapshot: {
+    total: async (
+      parent: { id: string },
+      args: { currencyId: string },
+      context: { providers: IAppProviders; userId: string },
+      _info: any,
+    ) => {
+      const service = new GetSnapshotTotalAmountService(context.providers);
+      return await service.execute(context.userId, parent.id, args.currencyId);
     },
   },
   Query: {

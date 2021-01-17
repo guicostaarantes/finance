@@ -1,4 +1,4 @@
-import { gql } from "apollo-server";
+import { gql } from 'apollo-server';
 
 const schema = gql`
   scalar Date
@@ -26,10 +26,10 @@ const schema = gql`
   }
 
   input AssetData {
-    snapshotId: ID!
     name: String!
-    amount: Float!
+    snapshotId: ID!
     currencyId: ID!
+    amount: Float!
   }
 
   type Authentication {
@@ -41,11 +41,7 @@ const schema = gql`
   type Snapshot {
     id: ID!
     date: Date!
-  }
-
-  type SnapshotID {
-    id: ID!
-    content: Snapshot!
+    total(currencyId: ID!): Float!
   }
 
   type Currency {
@@ -53,23 +49,22 @@ const schema = gql`
     name: String!
   }
 
-  type CurrencyID {
-    id: ID!
-    content: Currency!
-  }
-
   type CurrencyValue {
-    snapshotId: SnapshotID!
-    currencyId: CurrencyID!
+    snapshotId: ID!
+    snapshot: Snapshot!
+    currencyId: ID!
+    currency: Currency!
     price: Float!
   }
 
   type Asset {
     id: ID!
-    snapshotId: SnapshotID!
     name: String!
+    snapshotId: ID!
+    snapshot: Snapshot!
+    currencyId: ID!
+    currency: Currency!
     amount: Float!
-    currencyId: CurrencyID!
   }
 
   type Query {

@@ -1,9 +1,9 @@
-import { IAsset, ICreateAssetInput } from "@/modules/assets/entities/IAsset";
-import { IErrorProvider } from "@/providers/error/IErrorProvider";
-import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
-import { ISnapshot } from "@/modules/assets/entities/ISnapshot";
-import { ICurrency } from "@/modules/assets/entities/ICurrency";
-import { IAppProviders } from "@/providers/IAppProviders";
+import { IAsset, ICreateAssetInput } from "@assets/entities/IAsset";
+import { ICurrency } from "@assets/entities/ICurrency";
+import { ISnapshot } from "@assets/entities/ISnapshot";
+import { IDatabaseProvider } from "@providers/database/IDatabaseProvider";
+import { IErrorProvider } from "@providers/error/IErrorProvider";
+import { IAppProviders } from "@providers/IAppProviders";
 
 class UpdateAssetService {
   databaseProvider: IDatabaseProvider;

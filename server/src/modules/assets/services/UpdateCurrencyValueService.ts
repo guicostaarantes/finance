@@ -1,13 +1,11 @@
+import { ICurrency } from "@assets/entities/ICurrency";
 import {
-  ICurrencyValue,
-  ICreateCurrencyValueInput,
-  ICreateCurrencyValueData,
-} from "@/modules/assets/entities/ICurrencyValue";
-import { IErrorProvider } from "@/providers/error/IErrorProvider";
-import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
-import { ISnapshot } from "@/modules/assets/entities/ISnapshot";
-import { ICurrency } from "@/modules/assets/entities/ICurrency";
-import { IAppProviders } from "@/providers/IAppProviders";
+    ICreateCurrencyValueData, ICreateCurrencyValueInput, ICurrencyValue
+} from "@assets/entities/ICurrencyValue";
+import { ISnapshot } from "@assets/entities/ISnapshot";
+import { IDatabaseProvider } from "@providers/database/IDatabaseProvider";
+import { IErrorProvider } from "@providers/error/IErrorProvider";
+import { IAppProviders } from "@providers/IAppProviders";
 
 class UpdateCurrencyValueService {
   databaseProvider: IDatabaseProvider;

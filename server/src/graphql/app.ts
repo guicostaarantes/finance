@@ -1,8 +1,9 @@
 import { ApolloServer } from "apollo-server";
-import typeDefs from "@/graphql/schema";
-import resolvers from "@/graphql/resolvers";
-import { IAppProviders } from "@/providers/IAppProviders";
-import ValidateTokenService from "@/modules/users/services/ValidateTokenService";
+
+import resolvers from "@graphql/resolvers";
+import typeDefs from "@graphql/schema";
+import { IAppProviders } from "@providers/IAppProviders";
+import ValidateTokenService from "@users/services/ValidateTokenService";
 
 class App {
   app: ApolloServer;

@@ -1,7 +1,4 @@
-import {
-  ICondition,
-  IDatabaseProvider,
-} from "@/providers/database/IDatabaseProvider";
+import { ICondition, IDatabaseProvider } from "@providers/database/IDatabaseProvider";
 
 class TestDatabaseProvider implements IDatabaseProvider {
   database: Record<string, any[]>;

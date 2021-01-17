@@ -1,11 +1,8 @@
-import { IErrorProvider } from "@/providers/error/IErrorProvider";
-import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
-import { IAppProviders } from "@/providers/IAppProviders";
-import {
-  ICreateSnapshotData,
-  ICreateSnapshotInput,
-  ISnapshot,
-} from "../entities/ISnapshot";
+import { IDatabaseProvider } from "@providers/database/IDatabaseProvider";
+import { IErrorProvider } from "@providers/error/IErrorProvider";
+import { IAppProviders } from "@providers/IAppProviders";
+
+import { ICreateSnapshotData, ICreateSnapshotInput, ISnapshot } from "../entities/ISnapshot";
 
 class UpdateSnapshotService {
   databaseProvider: IDatabaseProvider;

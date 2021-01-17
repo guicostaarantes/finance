@@ -1,8 +1,6 @@
 import sqlite, { Database } from "better-sqlite3";
-import {
-  ICondition,
-  IDatabaseProvider,
-} from "@/providers/database/IDatabaseProvider";
+
+import { ICondition, IDatabaseProvider } from "@providers/database/IDatabaseProvider";
 
 class SQLiteDatabaseProvider implements IDatabaseProvider {
   database: Database;

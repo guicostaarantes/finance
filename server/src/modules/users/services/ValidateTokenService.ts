@@ -1,7 +1,7 @@
-import { ISession } from "@/modules/users/entities/IAuth";
-import { IErrorProvider } from "@/providers/error/IErrorProvider";
-import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
-import { IAppProviders } from "@/providers/IAppProviders";
+import { IDatabaseProvider } from "@providers/database/IDatabaseProvider";
+import { IErrorProvider } from "@providers/error/IErrorProvider";
+import { IAppProviders } from "@providers/IAppProviders";
+import { ISession } from "@users/entities/IAuth";
 
 class ValidateTokenService {
   databaseProvider: IDatabaseProvider;

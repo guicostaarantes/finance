@@ -1,11 +1,7 @@
-import { IErrorProvider } from "@/providers/error/IErrorProvider";
-import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
-import {
-  ICreateCurrencyData,
-  ICreateCurrencyInput,
-  ICurrency,
-} from "@/modules/assets/entities/ICurrency";
-import { IAppProviders } from "@/providers/IAppProviders";
+import { ICreateCurrencyData, ICreateCurrencyInput, ICurrency } from "@assets/entities/ICurrency";
+import { IDatabaseProvider } from "@providers/database/IDatabaseProvider";
+import { IErrorProvider } from "@providers/error/IErrorProvider";
+import { IAppProviders } from "@providers/IAppProviders";
 
 class UpdateCurrencyService {
   databaseProvider: IDatabaseProvider;

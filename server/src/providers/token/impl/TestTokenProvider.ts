@@ -1,4 +1,4 @@
-import { ITokenProvider } from "@/providers/Token/ITokenProvider";
+import { ITokenProvider } from "@providers/Token/ITokenProvider";
 
 class TestTokenProvider implements ITokenProvider {
   length: number;

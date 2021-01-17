@@ -1,7 +1,7 @@
-import { ICurrencyValue } from "@/modules/assets/entities/ICurrencyValue";
-import { IErrorProvider } from "@/providers/error/IErrorProvider";
-import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
-import { IAppProviders } from "@/providers/IAppProviders";
+import { ICurrencyValue } from "@assets/entities/ICurrencyValue";
+import { IDatabaseProvider } from "@providers/database/IDatabaseProvider";
+import { IErrorProvider } from "@providers/error/IErrorProvider";
+import { IAppProviders } from "@providers/IAppProviders";
 
 class GetCurrencyValueService {
   databaseProvider: IDatabaseProvider;

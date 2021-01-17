@@ -1,13 +1,10 @@
-import {
-  ISession,
-  IAuthenticateUserInput,
-} from "@/modules/users/entities/IAuth";
-import { IErrorProvider } from "@/providers/error/IErrorProvider";
-import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
-import { IHashProvider } from "@/providers/hash/IHashProvider";
-import { ITokenProvider } from "@/providers/Token/ITokenProvider";
-import { IUser } from "@/modules/users/entities/IUser";
-import { IAppProviders } from "@/providers/IAppProviders";
+import { IDatabaseProvider } from "@providers/database/IDatabaseProvider";
+import { IErrorProvider } from "@providers/error/IErrorProvider";
+import { IHashProvider } from "@providers/hash/IHashProvider";
+import { IAppProviders } from "@providers/IAppProviders";
+import { ITokenProvider } from "@providers/Token/ITokenProvider";
+import { IAuthenticateUserInput, ISession } from "@users/entities/IAuth";
+import { IUser } from "@users/entities/IUser";
 
 class AuthenticateUserService {
   databaseProvider: IDatabaseProvider;

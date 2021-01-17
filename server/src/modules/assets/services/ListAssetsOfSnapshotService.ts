@@ -1,7 +1,7 @@
-import { IAsset } from "@/modules/assets/entities/IAsset";
-import { IErrorProvider } from "@/providers/error/IErrorProvider";
-import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
-import { IAppProviders } from "@/providers/IAppProviders";
+import { IAsset } from "@assets/entities/IAsset";
+import { IDatabaseProvider } from "@providers/database/IDatabaseProvider";
+import { IErrorProvider } from "@providers/error/IErrorProvider";
+import { IAppProviders } from "@providers/IAppProviders";
 
 class ListAssetsOfSnapshotService {
   databaseProvider: IDatabaseProvider;

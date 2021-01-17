@@ -1,4 +1,5 @@
 import { ApolloError } from "apollo-server";
+
 import { IErrorProvider } from "../IErrorProvider";
 
 class ApolloErrorProvider implements IErrorProvider {

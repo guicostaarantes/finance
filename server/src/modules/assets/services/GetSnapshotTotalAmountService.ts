@@ -1,8 +1,8 @@
-import { IAsset } from '@/modules/assets/entities/IAsset';
-import { ICurrencyValue } from '@/modules/assets/entities/ICurrencyValue';
-import { IDatabaseProvider } from '@/providers/database/IDatabaseProvider';
-import { IErrorProvider } from '@/providers/error/IErrorProvider';
-import { IAppProviders } from '@/providers/IAppProviders';
+import { IAsset } from "@assets/entities/IAsset";
+import { ICurrencyValue } from "@assets/entities/ICurrencyValue";
+import { IDatabaseProvider } from "@providers/database/IDatabaseProvider";
+import { IErrorProvider } from "@providers/error/IErrorProvider";
+import { IAppProviders } from "@providers/IAppProviders";
 
 class GetSnapshotTotalAmountService {
   databaseProvider: IDatabaseProvider;

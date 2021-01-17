@@ -1,7 +1,7 @@
-import { ISnapshot } from "@/modules/assets/entities/ISnapshot";
-import { IErrorProvider } from "@/providers/error/IErrorProvider";
-import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
-import { IAppProviders } from "@/providers/IAppProviders";
+import { ISnapshot } from "@assets/entities/ISnapshot";
+import { IDatabaseProvider } from "@providers/database/IDatabaseProvider";
+import { IErrorProvider } from "@providers/error/IErrorProvider";
+import { IAppProviders } from "@providers/IAppProviders";
 
 class GetSnapshotService {
   databaseProvider: IDatabaseProvider;

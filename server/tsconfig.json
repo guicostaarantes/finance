@@ -5,7 +5,10 @@
     "downlevelIteration": true,
     "baseUrl": "./",
     "paths": {
-      "@/*": ["./src/*"],
+      "@assets/*": ["./src/modules/assets/*"],
+      "@users/*": ["./src/modules/users/*"],
+      "@providers/*": ["./src/providers/*"],
+      "@graphql/*": ["./src/graphql/*"],
     }
   }
 }

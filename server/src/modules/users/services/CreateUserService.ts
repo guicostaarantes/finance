@@ -1,11 +1,8 @@
-import {
-  ICreateUserData,
-  ICreateUserInput,
-} from "@/modules/users/entities/IUser";
-import { IErrorProvider } from "@/providers/error/IErrorProvider";
-import { IDatabaseProvider } from "@/providers/database/IDatabaseProvider";
-import { IHashProvider } from "@/providers/hash/IHashProvider";
-import { IAppProviders } from "@/providers/IAppProviders";
+import { IDatabaseProvider } from "@providers/database/IDatabaseProvider";
+import { IErrorProvider } from "@providers/error/IErrorProvider";
+import { IHashProvider } from "@providers/hash/IHashProvider";
+import { IAppProviders } from "@providers/IAppProviders";
+import { ICreateUserData, ICreateUserInput } from "@users/entities/IUser";
 
 class CreateUserService {
   databaseProvider: IDatabaseProvider;

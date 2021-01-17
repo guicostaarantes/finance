@@ -1,5 +1,6 @@
 import rand from "crypto-random-string";
-import { ITokenProvider } from "@/providers/Token/ITokenProvider";
+
+import { ITokenProvider } from "@providers/Token/ITokenProvider";
 
 class RandTokenProvider implements ITokenProvider {
   length: number;

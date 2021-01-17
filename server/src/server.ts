@@ -1,8 +1,8 @@
-import App from "@/graphql/app";
-import SQLiteDatabaseProvider from "@/providers/database/impl/SQLiteDatabaseProvider";
-import BcryptHashProvider from "@/providers/hash/impl/BcryptHashProvider";
-import RandTokenProvider from "@/providers/token/impl/RandTokenProvider";
-import ApolloErrorProvider from "./providers/error/impl/ApolloErrorProvider";
+import App from "@graphql/app";
+import SQLiteDatabaseProvider from "@providers/database/impl/SQLiteDatabaseProvider";
+import ApolloErrorProvider from "@providers/error/impl/ApolloErrorProvider";
+import BcryptHashProvider from "@providers/hash/impl/BcryptHashProvider";
+import RandTokenProvider from "@providers/token/impl/RandTokenProvider";
 
 const database = new SQLiteDatabaseProvider(process.env.DBPATH);
 const error = new ApolloErrorProvider();
